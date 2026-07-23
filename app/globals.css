@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Paper canvas */
+    --paper: 38 29% 95%;
+    --paper-2: 38 24% 92%;
+
+    /* Ink tones */
+    --ink: 30 10% 14%;
+    --graphite: 30 6% 26%;
+    --stone: 34 9% 48%;
+    --rule: 30 15% 70%;
+
+    /* Accents */
+    --coral: 9 62% 56%;
+    --sage: 90 16% 52%;
+    --periwinkle: 230 28% 62%;
+    --gold: 41 60% 52%;
+    --lavender: 260 18% 70%;
+    --highlight: 48 78% 62%;
+
+    --accent: 9 62% 56%;
+    --accent-foreground: 38 29% 95%;
+
+    --background: var(--paper);
+    --foreground: var(--ink);
+    --radius: 0.25rem;
+
+    --border: 30 15% 70%;
+    --input: 30 15% 70%;
+    --ring: 30 10% 14%;
+    --primary: 30 10% 14%;
+    --primary-foreground: 38 29% 95%;
+    --secondary: 38 24% 90%;
+    --secondary-foreground: 30 10% 14%;
+    --muted: 38 20% 88%;
+    --muted-foreground: 34 9% 40%;
+    --card: 38 29% 96%;
+    --card-foreground: 30 10% 14%;
+    --popover: 38 29% 96%;
+    --popover-foreground: 30 10% 14%;
+    --destructive: 9 62% 56%;
+    --destructive-foreground: 38 29% 95%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--rule));
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: hsl(var(--paper));
+    color: hsl(var(--ink));
+    font-feature-settings: 'ss01', 'cv11';
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: hsl(var(--highlight));
+    color: hsl(var(--ink));
+  }
+}
+
+@layer components {
+  /* Paper canvas: warm paper, grain, blueprint grid, radial light */
+  .paper-canvas {
+    background-color: hsl(var(--paper));
+    background-image:
+      radial-gradient(
+        120% 80% at 50% 0%,
+        rgba(255, 252, 244, 0.7) 0%,
+        rgba(255, 252, 244, 0) 55%
+      ),
+      radial-gradient(
+        90% 60% at 85% 30%,
+        rgba(214, 124, 64, 0.06) 0%,
+        rgba(214, 124, 64, 0) 60%
+      ),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+  }
+
+  /* Faint blueprint dot grid */
+  .blueprint-grid {
+    background-image:
+      radial-gradient(
+        circle at center,
+        hsl(var(--rule) / 0.4) 0.7px,
+        transparent 0.7px
+      );
+    background-size: 26px 26px;
+  }
+
+  /* Faint engineering line grid */
+  .blueprint-lines {
+    background-image:
+      linear-gradient(to right, hsl(var(--rule) / 0.18) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--rule) / 0.18) 1px, transparent 1px);
+    background-size: 96px 96px;
+  }
+
+  /* Paper sheet with soft drop shadow */
+  .paper-sheet {
+    background-color: hsl(38 30% 97%);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    box-shadow:
+      0 1px 1px rgba(60, 45, 30, 0.04),
+      0 6px 14px rgba(60, 45, 30, 0.08),
+      0 24px 48px rgba(60, 45, 30, 0.06);
+  }
+
+  .paper-edge {
+    box-shadow:
+      0 1px 2px rgba(60, 45, 30, 0.06),
+      0 8px 20px rgba(60, 45, 30, 0.1);
+  }
+
+  /* Masking tape */
+  .tape {
+    background: hsla(48, 70%, 78%, 0.55);
+    background-image:
+      linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.35) 0%,
+        rgba(255, 255, 255, 0) 30%,
+        rgba(255, 255, 255, 0) 70%,
+        rgba(255, 255, 255, 0.25) 100%
+      );
+    box-shadow: 0 1px 2px rgba(60, 45, 30, 0.12);
+    backdrop-filter: blur(0.2px);
+  }
+
+  .editorial-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: hsl(var(--stone));
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+  }
+
+  .editorial-num {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+  }
+
+  .handwritten {
+    font-family: var(--font-hand);
+    color: hsl(var(--graphite));
+  }
+
+  .editorial-rule {
+    border-color: hsl(var(--rule));
+  }
+
+  /* Hover underline */
+  .link-underline {
+    background-image: linear-gradient(
+      currentColor,
+      currentColor
+    );
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+}
+
+@layer utilities {
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 70%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--paper-2));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--rule));
+  border-radius: 999px;
+  border: 3px solid hsl(var(--paper-2));
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--stone));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
