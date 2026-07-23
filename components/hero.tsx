@@ -99,7 +99,7 @@ export function Hero() {
     <section
       ref={ref}
       onMouseMove={onMove}
-      className="relative min-h-[100svh] w-full overflow-hidden px-5 pb-16 pt-24 sm:px-8 lg:px-12"
+      className="relative min-h-[100svh] w-full overflow-hidden px-5 pb-16 pt-20 sm:px-8 lg:px-12"
     >
       {/* faint construction guides */}
       <div className="blueprint-lines pointer-events-none absolute inset-0 opacity-[0.25]" />
@@ -107,7 +107,7 @@ export function Hero() {
 
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-6">
         {/* ---------------- LEFT: editorial type ---------------- */}
-        <motion.div style={{ y: yText, opacity }} className="relative z-10 pt-4 lg:pt-0">
+        <motion.div style={{ y: yText, opacity }} className="relative z-10 lg:pt-0">
           <Reveal>
             <div className="mb-5 flex items-center gap-3">
               <span className="h-2 w-2 rounded-full bg-coral" />
@@ -129,7 +129,7 @@ export function Hero() {
             <MaskReveal delay={0.24}>web experiences.</MaskReveal>
           </h1>
 
-          <Reveal delay={0.3} className="mt-6 max-w-md">
+          <Reveal delay={0.3} className="mt-6 max-w-[34rem]">
             <p className="text-pretty font-sans text-[1.02rem] leading-relaxed text-graphite">
               I&rsquo;m <span className="font-medium text-ink">Shreyan</span> — a creative problem
               solver who obsesses over every pixel. I design and build
@@ -138,7 +138,7 @@ export function Hero() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.4} className="mt-7 flex flex-wrap items-center gap-4">
+          <Reveal delay={0.4} className="mt-6 flex flex-wrap items-center gap-4">
             <Magnetic strength={0.5}>
               <a
                 href="#work"
@@ -161,15 +161,15 @@ export function Hero() {
           </Reveal>
 
           {/* genuine portfolio stats */}
-          <Reveal delay={0.5} className="mt-8 flex items-center gap-6">
+          <Reveal delay={0.5} className="mt-8 flex items-center gap-8">
             <div>
-              <div className="editorial-num text-3xl text-ink">3</div>
-              <div className="editorial-label !text-[0.55rem]">Websites built</div>
+              <div className="editorial-num text-4xl font-medium text-ink">3</div>
+              <div className="editorial-label mt-1 !text-[0.55rem] !tracking-[0.2em]">Websites built</div>
             </div>
-            <div className="h-8 w-px bg-rule" />
+            <div className="h-10 w-px bg-rule" />
             <div>
-              <div className="editorial-num text-3xl text-ink">3</div>
-              <div className="editorial-label !text-[0.55rem]">Websites live</div>
+              <div className="editorial-num text-4xl font-medium text-ink">3</div>
+              <div className="editorial-label mt-1 !text-[0.55rem] !tracking-[0.2em]">Websites live</div>
             </div>
           </Reveal>
         </motion.div>
@@ -237,7 +237,7 @@ function DeskScene({
       {/* ---- BACK LAYER: blueprint + floating browser ---- */}
       <motion.div
         style={{ y: yBack, x: tBackX, translateY: tBackY }}
-        className="absolute left-0 top-2 w-[58%] sm:w-[52%]"
+        className="absolute left-0 top-0 w-[58%] sm:w-[52%]"
       >
         <div className="paper-sheet relative rounded-lg border border-rule/60 p-3">
           <CornerMarks />
@@ -266,7 +266,7 @@ function DeskScene({
       {/* ---- MID LAYER: laptop showing live site ---- */}
       <motion.div
         style={{ y: yMid, x: tMidX, translateY: tMidY }}
-        className="absolute right-0 top-10 w-[74%] sm:w-[68%]"
+        className="absolute right-0 top-6 w-[74%] sm:w-[68%]"
       >
         <div className="relative">
           {/* tape holding laptop */}
@@ -300,7 +300,7 @@ function DeskScene({
       {/* ---- FRONT LAYER: sketches, sticky, stamps ---- */}
       <motion.div
         style={{ y: yFront, x: tFrontX, translateY: tFrontY }}
-        className="absolute -left-2 bottom-2 w-[46%] sm:w-[42%]"
+        className="absolute -left-1 bottom-0 w-[46%] sm:w-[42%]"
       >
         {/* sketch sheet */}
         <div
@@ -336,19 +336,19 @@ function DeskScene({
       </motion.div>
 
       {/* ---- FOREGROUND: stamps + paperclip + arrow ---- */}
-      <motion.div style={{ y: yFront }} className="absolute right-2 bottom-6 z-20">
+      <motion.div style={{ y: yFront }} className="absolute right-1 bottom-4 z-20">
         <Stamp rotate={-14} color="sage">
           approved
         </Stamp>
       </motion.div>
 
-      <div className="absolute left-1/2 top-1 z-20">
+      <div className="absolute left-[44%] top-0 z-20">
         <PaperClip rotate={18} />
       </div>
 
       <motion.div
         style={{ y: yMid }}
-        className="absolute left-[42%] top-[52%] z-20 hidden sm:block"
+        className="absolute left-[44%] top-[48%] z-20 hidden sm:block"
       >
         <Annotation className="text-[0.82rem]" rotate={-8} arrow>
           focus here
@@ -358,7 +358,7 @@ function DeskScene({
       {/* measuring guide */}
       <motion.div
         style={{ y: yBack }}
-        className="absolute -bottom-2 right-10 z-10 hidden flex-col items-end sm:flex"
+        className="absolute -bottom-1 right-8 z-10 hidden flex-col items-end sm:flex"
       >
         <span className="editorial-label mb-1 !text-[0.5rem]">↕ 100vh</span>
         <span className="h-16 w-px bg-ink/30" />

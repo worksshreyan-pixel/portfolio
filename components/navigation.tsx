@@ -54,16 +54,16 @@ export function Navigation() {
         className="fixed left-1/2 top-4 z-50 w-[min(1120px,calc(100%-2rem))] -translate-x-1/2"
       >
         <div
-          className={`flex items-center justify-between rounded-full border px-5 py-2.5 transition-all duration-500 ${
+          className={`grid grid-cols-[1fr_auto_1fr] items-center rounded-full border px-5 py-2.5 transition-all duration-500 ${
             scrolled
               ? 'border-rule/70 bg-paper/85 backdrop-blur-md paper-edge'
               : 'border-transparent bg-transparent'
           }`}
         >
-          {/* Brand */}
+          {/* Brand — left column */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="group flex items-center gap-2.5"
+            className="group flex items-center justify-self-start gap-2.5"
             data-cursor="true"
           >
             <span className="flex h-7 w-7 items-center justify-center rounded-full border border-ink/30 font-display text-sm font-semibold text-ink transition-transform duration-300 group-hover:rotate-[-8deg]">
@@ -74,8 +74,8 @@ export function Navigation() {
             </span>
           </button>
 
-          {/* Desktop links — evenly spaced, vertically centered */}
-          <nav className="hidden items-center justify-center gap-2 md:flex">
+          {/* Desktop links — centered column */}
+          <nav className="hidden items-center justify-center gap-2 justify-self-center md:flex">
             {links.map((l) => (
               <button
                 key={`${l.id}-${l.label}`}
@@ -108,7 +108,8 @@ export function Navigation() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-3">
+          {/* CTA + mobile toggle — right column */}
+          <div className="flex items-center justify-self-end gap-3">
             <button
               onClick={() => go('contact')}
               data-cursor="true"
