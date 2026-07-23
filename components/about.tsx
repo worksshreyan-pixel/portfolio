@@ -34,32 +34,39 @@ export function About() {
           <div>
             <Reveal>
               <h2 className="display text-[9vw] leading-[0.92] text-ink sm:text-[6.5vw] lg:text-[5rem]">
-                I build websites<br />
-                the way a <span className="text-stone italic font-light">craftsman</span><br />
-                builds a <Highlight>walnut table</Highlight>.
+                An <span className="text-stone italic font-light">engineering</span><br />
+                student who designs<br />
+                <Highlight>premium</Highlight> websites.
               </h2>
             </Reveal>
 
             <Reveal delay={0.15} className="mt-10 max-w-xl">
               <p className="text-pretty font-sans text-[1.02rem] leading-relaxed text-graphite">
-                A few years ago I discovered AI-assisted web design — and
-                something clicked. The tools could move fast, but most people
-                used them to make fast, forgettable websites. I decided to go
-                the other way: use the speed to obsess over the details.
+                I&rsquo;m an Engineering student passionate about design,
+                technology, and building premium digital experiences. While
+                building my personal project, Deal-it, I discovered how
+                powerful AI-assisted development can be.
               </p>
             </Reveal>
             <Reveal delay={0.22} className="mt-5 max-w-xl">
               <p className="text-pretty font-sans text-[1.02rem] leading-relaxed text-graphite">
-                Today I design and build premium websites for businesses that
-                want to stand out — clinics, brands, startups. Every project
-                gets the same treatment: real thought in the layout, real care
-                in the motion, and real performance under the hood.
+                That experience inspired me to start creating modern websites
+                for real businesses. Today I combine design thinking, frontend
+                development, and AI tools to build fast, responsive, and
+                visually premium websites.
+              </p>
+            </Reveal>
+            <Reveal delay={0.28} className="mt-5 max-w-xl">
+              <p className="text-pretty font-sans text-[1.02rem] leading-relaxed text-graphite">
+                I&rsquo;m continuously learning, expanding my portfolio, and
+                working towards building my own web design agency in the
+                future.
               </p>
             </Reveal>
 
-            <Reveal delay={0.3} className="mt-8 flex items-center gap-5">
+            <Reveal delay={0.32} className="mt-8 flex items-center gap-5">
               <Annotation className="text-[1rem]" rotate={-2}>
-                still learning, always shipping
+                continuously learning, always shipping
               </Annotation>
               <PencilArrow direction="right" className="opacity-60" />
             </Reveal>

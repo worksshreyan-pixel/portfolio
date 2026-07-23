@@ -6,25 +6,34 @@ import { motion, AnimatePresence } from 'framer-motion';
 const links = [
   { id: 'work', label: 'Work', n: '01' },
   { id: 'about', label: 'About', n: '02' },
-  { id: 'process', label: 'Process', n: '03' },
-  { id: 'contact', label: 'Contact', n: '04' },
+  { id: 'about', label: 'Toolkit', n: '03' },
+  { id: 'process', label: 'Process', n: '04' },
+  { id: 'contact', label: 'Contact', n: '05' },
 ];
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('work');
+  const [activeLabel, setActiveLabel] = useState('Work');
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
-      const sections = links.map((l) => document.getElementById(l.id));
+      const sections = ['work', 'about', 'process', 'contact'];
+      const els = sections.map((id) => document.getElementById(id));
       const y = window.scrollY + window.innerHeight * 0.35;
       let cur = 'work';
-      for (const s of sections) {
-        if (s && s.offsetTop <= y) cur = s.id;
+      let curLabel = 'Work';
+      for (let i = 0; i < els.length; i++) {
+        const el = els[i];
+        if (el && el.offsetTop <= y) {
+          cur = sections[i];
+          curLabel = sections[i] === 'about' ? 'About' : sections[i] === 'work' ? 'Work' : sections[i] === 'process' ? 'Process' : 'Contact';
+        }
       }
       setActive(cur);
+      setActiveLabel(curLabel);
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -45,7 +54,7 @@ export function Navigation() {
         className="fixed left-1/2 top-4 z-50 w-[min(1120px,calc(100%-2rem))] -translate-x-1/2"
       >
         <div
-          className={`flex items-center justify-between rounded-full border px-4 py-2.5 transition-all duration-500 ${
+          className={`flex items-center justify-between rounded-full border px-5 py-2.5 transition-all duration-500 ${
             scrolled
               ? 'border-rule/70 bg-paper/85 backdrop-blur-md paper-edge'
               : 'border-transparent bg-transparent'
@@ -65,30 +74,30 @@ export function Navigation() {
             </span>
           </button>
 
-          {/* Desktop links */}
-          <nav className="hidden items-center gap-1 md:flex">
+          {/* Desktop links — evenly spaced, vertically centered */}
+          <nav className="hidden items-center justify-center gap-2 md:flex">
             {links.map((l) => (
               <button
-                key={l.id}
+                key={`${l.id}-${l.label}`}
                 onClick={() => go(l.id)}
                 data-cursor="true"
-                className="group relative px-3 py-1.5"
+                className="group relative flex items-center px-3 py-1.5"
               >
                 <span
                   className={`font-mono text-[0.7rem] tracking-wide transition-colors ${
-                    active === l.id ? 'text-ink' : 'text-stone'
+                    active === l.id && activeLabel === l.label ? 'text-ink' : 'text-stone'
                   }`}
                 >
                   {l.n}
                 </span>
                 <span
                   className={`ml-1.5 link-underline font-display text-[0.9rem] ${
-                    active === l.id ? 'text-ink' : 'text-graphite'
+                    active === l.id && activeLabel === l.label ? 'text-ink' : 'text-graphite'
                   }`}
                 >
                   {l.label}
                 </span>
-                {active === l.id && (
+                {active === l.id && activeLabel === l.label && (
                   <motion.span
                     layoutId="nav-dot"
                     className="absolute -bottom-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-coral"
@@ -145,7 +154,7 @@ export function Navigation() {
             <div className="flex h-full flex-col justify-center px-8">
               {links.map((l, i) => (
                 <motion.button
-                  key={l.id}
+                  key={`${l.id}-${l.label}`}
                   onClick={() => go(l.id)}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}

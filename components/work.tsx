@@ -10,11 +10,13 @@ import {
 import {
   BrowserMock,
   EliteCosmoSite,
+  GaddamClinicSite,
   DealItSite,
-  VibeBoltSite,
   AnnotationChip,
 } from '@/components/browser-mock';
-import { ArrowUpRight, ExternalLink } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+
+type Spec = { label: string; value: string };
 
 type Project = {
   index: string;
@@ -25,78 +27,95 @@ type Project = {
   description: string;
   url: string;
   tech: string[];
-  metrics: { label: string; value: string }[];
-  notes: { text: string; color?: 'gold' | 'coral' | 'sage'; rotate?: number; pos: string }[];
+  specs: Spec[];
+  notes: { text: string; color?: 'gold' | 'coral' | 'sage' | 'lavender'; rotate?: number; pos: string }[];
   tapeColor: 'gold' | 'coral' | 'sage' | 'lavender';
   renderSite: () => JSX.Element;
+  featured?: boolean;
+  focusAreas?: string[];
 };
 
 const projects: Project[] = [
   {
     index: '01',
     name: 'Elite Cosmo Clinic',
-    tagline: 'Aesthetic clinic, reimagined',
-    category: 'Healthcare · Brand & Web',
+    tagline: 'Professional clinic website',
+    category: 'Healthcare',
     year: '2025',
     description:
-      'A serene, editorial web experience for a Mumbai aesthetic clinic. Soft dark palette, generous whitespace, and a booking flow that feels less like a form and more like a consultation.',
+      'A professional website for a cosmetic clinic, built to make appointment booking effortless, establish trust with new patients, and give the clinic a modern, credible online presence that stands out in a competitive market.',
     url: 'elitecosmoclinic.com',
-    tech: ['Next.js', 'Tailwind', 'Framer Motion', 'Vercel'],
-    metrics: [
-      { label: 'Lighthouse', value: '98' },
-      { label: 'Bookings', value: '+42%' },
-      { label: 'Load', value: '0.8s' },
+    tech: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
+    specs: [
+      { label: 'Industry', value: 'Cosmetic Clinic' },
+      { label: 'Project Type', value: 'Business Website' },
+      { label: 'Role', value: 'Design & Development' },
+      { label: 'Status', value: 'Live' },
     ],
     notes: [
-      { text: 'soft lavender — conveys calm & trust', color: 'lavender' as any, rotate: -3, pos: 'sm:-left-6 top-10' },
-      { text: 'booking flow rebuilt — 3 steps → 1', color: 'sage', rotate: 4, pos: 'right-2 -bottom-6' },
+      { text: 'calm palette — builds trust with patients', color: 'lavender', rotate: -3, pos: 'sm:-left-6 top-10' },
+      { text: 'appointment booking front and centre', color: 'sage', rotate: 4, pos: 'right-2 -bottom-6' },
     ],
     tapeColor: 'lavender',
     renderSite: EliteCosmoSite,
   },
   {
     index: '02',
-    name: 'Deal-it',
-    tagline: 'Deals that disappear fast',
-    category: 'Commerce · Product Design',
+    name: 'Dr. Gaddam Clinic',
+    tagline: 'Professional clinic website',
+    category: 'Healthcare',
     year: '2025',
     description:
-      'A vibrant deals platform with flash timers, category feeds, and a mobile-first grid. I built a design system that scales across thousands of SKUs without losing personality.',
-    url: 'dealit.app',
-    tech: ['Next.js', 'Supabase', 'Tailwind', 'PWA'],
-    metrics: [
-      { label: 'Lighthouse', value: '97' },
-      { label: 'Conversion', value: '+31%' },
-      { label: 'Bounce', value: '-22%' },
+      'A professional website for Dr. Gaddam Clinic, designed to streamline appointment booking, strengthen the clinic\u2019s modern online presence, improve the patient experience, and improve visibility so patients can find and reach the clinic easily.',
+    url: 'drgaddamclinic.com',
+    tech: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
+    specs: [
+      { label: 'Industry', value: 'General Clinic' },
+      { label: 'Project Type', value: 'Business Website' },
+      { label: 'Role', value: 'Design & Development' },
+      { label: 'Status', value: 'Live' },
     ],
     notes: [
-      { text: 'green = go. urgency without anxiety', color: 'sage', rotate: 3, pos: '-left-4 top-16' },
-      { text: 'flash timer draws the eye →', color: 'coral', rotate: -4, pos: 'right-0 -bottom-4' },
+      { text: 'warm, approachable — feels human', color: 'coral', rotate: 3, pos: '-left-4 top-16' },
+      { text: 'booking + video visit options', color: 'gold', rotate: -4, pos: 'right-0 -bottom-4' },
     ],
-    tapeColor: 'sage',
-    renderSite: DealItSite,
+    tapeColor: 'coral',
+    renderSite: GaddamClinicSite,
   },
   {
     index: '03',
-    name: 'VibeBolt',
-    tagline: 'Ship apps at the speed of thought',
-    category: 'SaaS · Developer Tool',
+    name: 'Deal-it',
+    tagline: 'Personal SaaS project · featured',
+    category: 'SaaS · Marketplace',
     year: '2025',
     description:
-      'An AI-native developer platform brand and marketing site. Electric gradients on deep navy, a live terminal demo, and template cards that make the product feel immediate.',
-    url: 'vibebolt.io',
-    tech: ['Next.js', 'TypeScript', 'Framer Motion', 'Stripe'],
-    metrics: [
-      { label: 'Lighthouse', value: '96' },
-      { label: 'Signups', value: '+58%' },
-      { label: 'Load', value: '0.9s' },
+      'Deal-it is my personal SaaS project, built while exploring AI-assisted web development and modern product design. It is a platform focused on secure digital product delivery between buyers and sellers — an end-to-end marketplace concept where trust, transaction security, and a clean user experience come first. Building it taught me how to think like a product designer, not just a developer.',
+    url: 'dealit.app',
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase', 'Framer Motion'],
+    specs: [
+      { label: 'Industry', value: 'Digital Marketplace' },
+      { label: 'Project Type', value: 'SaaS Platform' },
+      { label: 'Role', value: 'Product, Design & Development' },
+      { label: 'Status', value: 'In Progress' },
     ],
     notes: [
-      { text: 'gradient = energy + speed', color: 'coral', rotate: -3, pos: '-left-6 top-8' },
-      { text: 'live terminal builds instant trust', color: 'gold', rotate: 5, pos: 'right-2 -bottom-6' },
+      { text: 'escrow vault — funds held until delivery', color: 'sage', rotate: -3, pos: '-left-6 top-8' },
+      { text: 'AI-assisted workflow → faster iteration', color: 'coral', rotate: 5, pos: 'right-2 -bottom-6' },
     ],
-    tapeColor: 'coral',
-    renderSite: VibeBoltSite,
+    tapeColor: 'sage',
+    renderSite: DealItSite,
+    featured: true,
+    focusAreas: [
+      'Product Design',
+      'User Experience',
+      'Frontend Development',
+      'Secure Digital Delivery',
+      'Marketplace Concepts',
+      'AI-assisted Development Workflow',
+      'Modern SaaS Architecture',
+      'Responsive Design',
+      'Continuous Iteration',
+    ],
   },
 ];
 
@@ -137,12 +156,13 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
   });
   const browserY = useTransform(scrollYProgress, [0, 1], [80, -80]);
   const noteY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const watermarkY = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
   return (
     <div ref={ref} className="relative">
       {/* big watermark index */}
       <motion.div
-        style={{ y: useTransform(scrollYProgress, [0, 1], [0, -60]) }}
+        style={{ y: watermarkY }}
         className="pointer-events-none absolute -top-16 right-0 z-0 select-none opacity-[0.07]"
         aria-hidden
       >
@@ -151,14 +171,22 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
         </span>
       </motion.div>
 
+      {/* featured badge */}
+      {project.featured && (
+        <Reveal className="absolute -top-10 left-0 z-20">
+          <span className="inline-flex items-center gap-2 rounded-full border border-coral/50 bg-paper/80 px-3 py-1 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-coral backdrop-blur-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-coral" /> Featured Project
+          </span>
+        </Reveal>
+      )}
+
       <div
         className={`relative z-10 grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
           flip ? 'lg:[direction:rtl]' : ''
         }`}
       >
-        {/* [direction] trick — reset children */}
+        {/* editorial info */}
         <div className="lg:[direction:ltr]">
-          {/* editorial info */}
           <Reveal>
             <div className="mb-5 flex flex-wrap items-center gap-3">
               <span className="editorial-num text-xl text-ink">{project.index}</span>
@@ -185,7 +213,7 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
           {/* tech tags as a designed system */}
           <Reveal delay={0.2}>
             <div className="mt-7">
-              <div className="editorial-label mb-2.5">Stack</div>
+              <div className="editorial-label mb-2.5">Technologies</div>
               <div className="flex flex-wrap gap-2">
                 {project.tech.map((t) => (
                   <span
@@ -199,17 +227,34 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
             </div>
           </Reveal>
 
-          {/* metrics */}
+          {/* genuine specs — no fake metrics */}
           <Reveal delay={0.25}>
-            <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-rule pt-5">
-              {project.metrics.map((m) => (
-                <div key={m.label}>
-                  <div className="editorial-num text-2xl text-ink">{m.value}</div>
-                  <div className="editorial-label !text-[0.52rem]">{m.label}</div>
+            <div className="mt-7 grid grid-cols-2 gap-x-8 gap-y-4 border-t border-rule pt-5 sm:grid-cols-4">
+              {project.specs.map((s) => (
+                <div key={s.label}>
+                  <div className="font-display text-[0.92rem] font-medium text-ink">{s.value}</div>
+                  <div className="editorial-label !text-[0.52rem]">{s.label}</div>
                 </div>
               ))}
             </div>
           </Reveal>
+
+          {/* focus areas — only for featured project */}
+          {project.focusAreas && (
+            <Reveal delay={0.28}>
+              <div className="mt-7">
+                <div className="editorial-label mb-2.5">What I worked on</div>
+                <div className="flex flex-wrap gap-x-5 gap-y-1.5">
+                  {project.focusAreas.map((f) => (
+                    <span key={f} className="flex items-center gap-1.5 font-sans text-[0.82rem] text-graphite">
+                      <span className="h-1 w-1 rounded-full bg-coral" />
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          )}
 
           {/* CTA */}
           <Reveal delay={0.3}>
@@ -235,7 +280,6 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
               rotate={flip ? 2 : -2}
               tapeColor={project.tapeColor}
               index={project.index}
-              metrics={project.metrics}
             />
           </motion.div>
 

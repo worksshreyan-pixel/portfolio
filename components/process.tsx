@@ -33,7 +33,7 @@ export function Process() {
 
       <div className="mx-auto max-w-[1280px]">
         <Reveal>
-          <SectionIndex n="03" label="Services · Process · Why Me" className="mb-12" />
+          <SectionIndex n="04" label="Services · Process · Why Me" className="mb-12" />
         </Reveal>
 
         {/* heading */}

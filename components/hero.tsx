@@ -99,7 +99,7 @@ export function Hero() {
     <section
       ref={ref}
       onMouseMove={onMove}
-      className="relative min-h-[100svh] w-full overflow-hidden px-5 pb-16 pt-28 sm:px-8 lg:px-12"
+      className="relative min-h-[100svh] w-full overflow-hidden px-5 pb-16 pt-24 sm:px-8 lg:px-12"
     >
       {/* faint construction guides */}
       <div className="blueprint-lines pointer-events-none absolute inset-0 opacity-[0.25]" />
@@ -109,7 +109,7 @@ export function Hero() {
         {/* ---------------- LEFT: editorial type ---------------- */}
         <motion.div style={{ y: yText, opacity }} className="relative z-10 pt-4 lg:pt-0">
           <Reveal>
-            <div className="mb-7 flex items-center gap-3">
+            <div className="mb-5 flex items-center gap-3">
               <span className="h-2 w-2 rounded-full bg-coral" />
               <span className="editorial-label">Portfolio · Vol. 01 · 2026</span>
             </div>
@@ -129,7 +129,7 @@ export function Hero() {
             <MaskReveal delay={0.24}>web experiences.</MaskReveal>
           </h1>
 
-          <Reveal delay={0.35} className="mt-8 max-w-md">
+          <Reveal delay={0.3} className="mt-6 max-w-md">
             <p className="text-pretty font-sans text-[1.02rem] leading-relaxed text-graphite">
               I&rsquo;m <span className="font-medium text-ink">Shreyan</span> — a creative problem
               solver who obsesses over every pixel. I design and build
@@ -138,7 +138,7 @@ export function Hero() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.45} className="mt-9 flex flex-wrap items-center gap-4">
+          <Reveal delay={0.4} className="mt-7 flex flex-wrap items-center gap-4">
             <Magnetic strength={0.5}>
               <a
                 href="#work"
@@ -160,21 +160,16 @@ export function Hero() {
             </a>
           </Reveal>
 
-          {/* small editorial footer-row */}
-          <Reveal delay={0.55} className="mt-12 flex items-center gap-6">
+          {/* genuine portfolio stats */}
+          <Reveal delay={0.5} className="mt-8 flex items-center gap-6">
             <div>
-              <div className="editorial-num text-3xl text-ink">12<span className="text-stone">+</span></div>
-              <div className="editorial-label !text-[0.55rem]">Sites shipped</div>
+              <div className="editorial-num text-3xl text-ink">3</div>
+              <div className="editorial-label !text-[0.55rem]">Websites built</div>
             </div>
             <div className="h-8 w-px bg-rule" />
             <div>
-              <div className="editorial-num text-3xl text-ink">4.9<span className="text-stone">★</span></div>
-              <div className="editorial-label !text-[0.55rem]">Client rating</div>
-            </div>
-            <div className="h-8 w-px bg-rule" />
-            <div>
-              <div className="editorial-num text-3xl text-ink">95<span className="text-stone">+</span></div>
-              <div className="editorial-label !text-[0.55rem]">Lighthouse</div>
+              <div className="editorial-num text-3xl text-ink">3</div>
+              <div className="editorial-label !text-[0.55rem]">Websites live</div>
             </div>
           </Reveal>
         </motion.div>

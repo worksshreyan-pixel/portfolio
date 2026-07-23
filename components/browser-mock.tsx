@@ -155,7 +155,7 @@ export function EliteCosmoSite() {
 
 export function DealItSite() {
   return (
-    <AutoScroll distance="68%" duration={15}>
+    <AutoScroll distance="82%" duration={20}>
       <div className="bg-[hsl(150_30%_96%)] px-5 py-5 text-[hsl(150_40%_14%)]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
@@ -163,16 +163,16 @@ export function DealItSite() {
             <span className="font-display text-sm font-semibold">Deal-it</span>
           </div>
           <div className="flex gap-2 text-[0.5rem] uppercase tracking-widest opacity-70">
-            <span>Deals</span><span>Stores</span><span>App</span>
+            <span>Marketplace</span><span>Sell</span><span>Vault</span>
           </div>
         </div>
         <div className="mt-5 rounded-xl bg-[hsl(150_60%_34%)] p-4 text-white">
-          <div className="text-[0.5rem] uppercase tracking-widest opacity-80">Today's drop</div>
-          <div className="mt-1 text-lg font-bold leading-tight">Save up to <span className="text-[hsl(48_80%_62%)]">60%</span> on top brands</div>
+          <div className="text-[0.5rem] uppercase tracking-widest opacity-80">Secure digital delivery</div>
+          <div className="mt-1 text-lg font-bold leading-tight">Buy & sell digital products, <span className="text-[hsl(48_80%_62%)]">safely</span></div>
           <div className="mt-3 flex gap-1.5">
-            <div className="rounded-md bg-white/15 px-2 py-1 text-[0.5rem]">Fashion</div>
-            <div className="rounded-md bg-white/15 px-2 py-1 text-[0.5rem]">Dining</div>
-            <div className="rounded-md bg-white/15 px-2 py-1 text-[0.5rem]">Tech</div>
+            <div className="rounded-md bg-white/15 px-2 py-1 text-[0.5rem]">E-books</div>
+            <div className="rounded-md bg-white/15 px-2 py-1 text-[0.5rem]">Templates</div>
+            <div className="rounded-md bg-white/15 px-2 py-1 text-[0.5rem]">Licenses</div>
           </div>
         </div>
         <div className="mt-4 grid grid-cols-2 gap-2.5">
@@ -180,20 +180,84 @@ export function DealItSite() {
             <div key={i} className="rounded-lg border border-[hsl(150_30%_80%)] bg-white p-2.5">
               <div className="aspect-square rounded-md bg-gradient-to-br from-[hsl(150_30%_85%)] to-[hsl(150_30%_72%)]" />
               <div className="mt-1.5 flex items-center justify-between">
-                <span className="text-[0.6rem] font-semibold">-{[40,55,30,60][i]}%</span>
-                <span className="text-[0.5rem] line-through opacity-50">₹{[1999,1499,899,2499][i]}</span>
+                <span className="text-[0.6rem] font-semibold">₹{[499,299,799,199][i]}</span>
+                <span className="flex items-center gap-0.5 text-[0.5rem] text-[hsl(150_60%_34%)]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[hsl(150_60%_34%)]" />Secure
+                </span>
               </div>
               <div className="mt-1 h-1.5 w-2/3 rounded bg-[hsl(150_30%_80%)]" />
             </div>
           ))}
         </div>
-        <div className="mt-4 flex items-center justify-between rounded-lg bg-[hsl(150_60%_34%)]/10 p-2.5">
-          <div>
-            <div className="text-[0.55rem] font-semibold uppercase tracking-wider">Flash deal</div>
-            <div className="text-[0.5rem] opacity-70">Ends in 02:14:09</div>
+        <div className="mt-4 rounded-lg border border-[hsl(150_60%_34%)]/20 bg-[hsl(150_60%_34%)]/8 p-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-[0.55rem] font-semibold uppercase tracking-wider">Escrow vault</div>
+              <div className="text-[0.5rem] opacity-70">Funds held until delivery confirmed</div>
+            </div>
+            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[hsl(150_60%_34%)] text-[0.6rem] font-bold text-white">✓</div>
           </div>
-          <div className="rounded-md bg-[hsl(150_60%_34%)] px-3 py-1 text-[0.5rem] font-semibold text-white">Grab</div>
         </div>
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <div className="rounded-md bg-white p-2.5 shadow-sm">
+            <div className="text-[0.5rem] uppercase tracking-widest opacity-60">Seller</div>
+            <div className="mt-0.5 text-[0.7rem] font-semibold">List product</div>
+            <div className="mt-1.5 h-1.5 w-full rounded bg-[hsl(150_30%_85%)]" />
+          </div>
+          <div className="rounded-md bg-[hsl(150_60%_34%)] p-2.5 text-white">
+            <div className="text-[0.5rem] uppercase tracking-widest opacity-80">Buyer</div>
+            <div className="mt-0.5 text-[0.7rem] font-semibold">Checkout</div>
+            <div className="mt-1.5 h-1.5 w-full rounded bg-white/25" />
+          </div>
+        </div>
+        <div className="mt-4 text-center text-[0.5rem] uppercase tracking-[0.3em] text-[hsl(150_60%_34%)] opacity-60">Trust · Delivery · Marketplace</div>
+      </div>
+    </AutoScroll>
+  );
+}
+
+/* Dr. Gaddam Clinic — distinct clinic identity, warmer palette */
+export function GaddamClinicSite() {
+  return (
+    <AutoScroll distance="70%" duration={18}>
+      <div className="bg-[hsl(20_35%_97%)] px-5 py-5 text-[hsl(20_40%_16%)]">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[hsl(20_60%_45%)] text-[0.55rem] font-bold text-white">+</div>
+            <span className="font-display text-sm font-semibold">Dr. Gaddam Clinic</span>
+          </div>
+          <div className="flex gap-2 text-[0.5rem] uppercase tracking-widest opacity-70">
+            <span>Services</span><span>About</span><span>Book</span>
+          </div>
+        </div>
+        <div className="mt-6">
+          <div className="text-[1.55rem] font-light leading-[0.95] tracking-tight">Compassionate care,<br/><span className="text-[hsl(20_60%_45%)]">close to home</span></div>
+          <div className="mt-2 text-[0.55rem] uppercase tracking-[0.25em] opacity-60">General & Family Clinic</div>
+        </div>
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          <div className="aspect-[3/4] rounded-md bg-gradient-to-b from-[hsl(20_40%_88%)] to-[hsl(20_40%_80%)]" />
+          <div className="aspect-[3/4] rounded-md bg-gradient-to-b from-[hsl(150_25%_80%)] to-[hsl(150_25%_72%)]" />
+          <div className="aspect-[3/4] rounded-md bg-gradient-to-b from-[hsl(20_60%_70%)] to-[hsl(20_60%_60%)]" />
+        </div>
+        <div className="mt-4 rounded-lg border border-[hsl(20_40%_80%)] bg-white p-3">
+          <div className="text-[0.5rem] uppercase tracking-widest text-[hsl(20_60%_45%)]">Book Appointment</div>
+          <div className="mt-1.5 flex gap-1.5">
+            <div className="h-6 flex-1 rounded-md bg-[hsl(20_35%_92%)]" />
+            <div className="h-6 flex-1 rounded-md bg-[hsl(20_35%_92%)]" />
+          </div>
+          <div className="mt-1.5 h-5 w-full rounded-md bg-[hsl(20_60%_45%)] text-white text-[0.5rem] flex items-center justify-center font-semibold uppercase tracking-wider">Confirm</div>
+        </div>
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <div className="rounded-md bg-[hsl(20_35%_92%)] p-2.5">
+            <div className="text-[0.5rem] uppercase tracking-widest opacity-70">Consultation</div>
+            <div className="mt-1 text-[0.6rem] font-semibold">Mon–Sat</div>
+          </div>
+          <div className="rounded-md bg-[hsl(150_25%_90%)] p-2.5">
+            <div className="text-[0.5rem] uppercase tracking-widest opacity-70">Online</div>
+            <div className="mt-1 text-[0.6rem] font-semibold">Video visit</div>
+          </div>
+        </div>
+        <div className="mt-4 text-center text-[0.5rem] uppercase tracking-[0.3em] text-[hsl(20_60%_45%)] opacity-70">Care · Trust · Accessibility</div>
       </div>
     </AutoScroll>
   );

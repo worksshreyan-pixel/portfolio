@@ -60,7 +60,7 @@ export function Contact() {
 
       <div className="mx-auto max-w-[1280px]">
         <Reveal>
-          <SectionIndex n="04" label="Contact" className="mb-12" />
+          <SectionIndex n="05" label="Contact" className="mb-12" />
         </Reveal>
 
         <Reveal>
