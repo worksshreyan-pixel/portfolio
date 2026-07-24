@@ -31,6 +31,8 @@ export function BrowserMock({
   });
   const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
+  const displayUrl = url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+
   return (
     <motion.div
       ref={ref}
@@ -51,7 +53,7 @@ export function BrowserMock({
               <rect x="4" y="10" width="16" height="10" rx="2" />
               <path d="M8 10V7a4 4 0 0 1 8 0v3" />
             </svg>
-            <span className="font-mono text-[0.65rem] text-graphite">{url}</span>
+            <span className="font-mono text-[0.65rem] text-graphite">{displayUrl}</span>
           </div>
           <span className="editorial-label hidden !text-[0.5rem] sm:block">{index}</span>
         </div>
@@ -111,43 +113,84 @@ export function AutoScroll({
 /* ---------------------------------------------------------------- */
 export function EliteCosmoSite() {
   return (
-    <AutoScroll distance="72%" duration={18}>
-      <div className="bg-[hsl(280_20%_12%)] px-5 py-5 text-[hsl(280_15%_92%)]">
-        <div className="flex items-center justify-between">
-          <span className="font-display text-sm font-medium tracking-[0.2em]">ELITE COSMO</span>
-          <div className="flex gap-3 text-[0.55rem] uppercase tracking-widest opacity-70">
-            <span>Treatments</span><span>About</span><span>Book</span>
+    <AutoScroll distance="45%" duration={16}>
+      <div className="bg-[#FAF6F0] text-[#3C2A21] font-serif pb-8 min-h-[500px] relative">
+        {/* Soft luxury glow background */}
+        <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-gradient-to-bl from-[#FFE8D6]/40 via-[#FDF5E6]/30 to-transparent blur-2xl pointer-events-none animate-pulse" />
+
+        {/* Navbar */}
+        <div className="bg-[#FAF6F0]/90 backdrop-blur-md border-b border-[#3C2A21]/5 px-4 py-2.5 flex items-center justify-between sticky top-0 z-30">
+          <div className="flex items-center gap-1.5">
+            <span className="text-[0.45rem] font-serif tracking-[0.15em] font-bold text-[#D4A373]">✦ ELITE COSMO</span>
+          </div>
+          <div className="flex gap-2.5 text-[0.35rem] font-sans font-medium text-[#3C2A21]/60 uppercase tracking-widest">
+            <span>Treatments</span>
+            <span>Doctors</span>
+            <span>Gallery</span>
+            <span>Reviews</span>
+            <span>Book</span>
+          </div>
+          <button className="border border-[#D4A373] text-[#D4A373] hover:bg-[#D4A373] hover:text-white px-3 py-1 rounded-full text-[0.35rem] font-sans font-semibold tracking-wider uppercase transition-all duration-300">
+            Book Appointment
+          </button>
+        </div>
+
+        {/* Hero Section */}
+        <div className="px-6 pt-8 text-center max-w-md mx-auto">
+          <span className="inline-block bg-[#D4A373]/10 text-[#C68B59] px-2.5 py-0.5 rounded-full text-[0.32rem] font-sans font-bold uppercase tracking-wider">
+            Luxury Aesthetic Clinic
+          </span>
+          <h1 className="text-xl font-medium tracking-tight text-[#3C2A21] mt-2.5 leading-[1.1]">
+            Reveal Your <span className="italic text-[#D4A373]">Natural Glow</span>
+          </h1>
+          <p className="text-[0.45rem] text-[#3C2A21]/60 font-sans mt-2 max-w-xs mx-auto leading-relaxed">
+            Where dermatology meets art. Premium cosmetic, laser, and hair transplant therapies customized for your skin.
+          </p>
+
+          <div className="flex justify-center gap-3 mt-4">
+            <button className="bg-[#D4A373] hover:bg-[#C68B59] text-white font-sans px-4 py-1.5 rounded-full text-[0.38rem] font-bold shadow-md tracking-wider uppercase transition-colors">
+              Treatments
+            </button>
+            <button className="border border-[#3C2A21]/20 hover:bg-[#3C2A21]/5 text-[#3C2A21] font-sans px-4 py-1.5 rounded-full text-[0.38rem] font-bold tracking-wider uppercase transition-colors">
+              Book Appointment
+            </button>
           </div>
         </div>
-        <div className="mt-6 flex items-end justify-between">
-          <div>
-            <div className="text-[1.6rem] font-light leading-[0.95] tracking-tight">Reveal your<br/><span className="text-[hsl(280_40%_75%)]">natural glow</span></div>
-            <div className="mt-2 text-[0.55rem] uppercase tracking-[0.25em] opacity-60">Aesthetic Clinic · Mumbai</div>
+
+        {/* Floating Treatment Cards Gallery */}
+        <div className="mt-8 grid grid-cols-3 gap-3 px-4">
+          <div className="bg-white border border-[#E9D8A6]/20 rounded-xl p-3 shadow-[0_10px_25px_rgba(212,163,115,0.05)] hover:-translate-y-1 transition duration-300">
+            <div className="aspect-square rounded-lg bg-gradient-to-br from-[#FFE8D6] to-[#FAF6F0] mb-2 border border-[#E6CCB2]/20 flex items-center justify-center text-[0.7rem]">🌸</div>
+            <h4 className="text-[0.42rem] font-bold">Skin Rejuvenation</h4>
+            <div className="w-8 h-[1px] bg-[#D4A373] mt-1" />
+            <p className="text-[0.32rem] text-slate-400 font-sans mt-1">Custom HydraFacials</p>
           </div>
-          <div className="h-14 w-14 rounded-full border border-[hsl(280_40%_75%)]/60" />
+          <div className="bg-white border border-[#E9D8A6]/20 rounded-xl p-3 shadow-[0_10px_25px_rgba(212,163,115,0.05)] hover:-translate-y-1 transition duration-300">
+            <div className="aspect-square rounded-lg bg-gradient-to-br from-[#E6CCB2] to-[#FAF6F0] mb-2 border border-[#E6CCB2]/20 flex items-center justify-center text-[0.7rem]">✨</div>
+            <h4 className="text-[0.42rem] font-bold">Laser Therapy</h4>
+            <div className="w-8 h-[1px] bg-[#D4A373] mt-1" />
+            <p className="text-[0.32rem] text-slate-400 font-sans mt-1">USFDA Approved Lasers</p>
+          </div>
+          <div className="bg-white border border-[#E9D8A6]/20 rounded-xl p-3 shadow-[0_10px_25px_rgba(212,163,115,0.05)] hover:-translate-y-1 transition duration-300">
+            <div className="aspect-square rounded-lg bg-gradient-to-br from-[#D4A373]/30 to-[#FAF6F0] mb-2 border border-[#E6CCB2]/20 flex items-center justify-center text-[0.7rem]">🌱</div>
+            <h4 className="text-[0.42rem] font-bold">Hair Transplant</h4>
+            <div className="w-8 h-[1px] bg-[#D4A373] mt-1" />
+            <p className="text-[0.32rem] text-slate-400 font-sans mt-1">Follicular Unit Extraction</p>
+          </div>
         </div>
-        <div className="mt-5 grid grid-cols-3 gap-2">
-          <div className="aspect-[3/4] rounded-md bg-gradient-to-b from-[hsl(280_30%_30%)] to-[hsl(280_20%_18%)]" />
-          <div className="aspect-[3/4] rounded-md bg-gradient-to-b from-[hsl(20_30%_35%)] to-[hsl(20_20%_20%)]" />
-          <div className="aspect-[3/4] rounded-md bg-gradient-to-b from-[hsl(340_30%_30%)] to-[hsl(340_20%_18%)]" />
-        </div>
-        <div className="mt-4 rounded-lg border border-white/10 p-3">
-          <div className="text-[0.5rem] uppercase tracking-widest text-[hsl(280_40%_75%)]">Signature</div>
-          <div className="mt-1 text-sm font-light">Hydra Glow Facial</div>
-          <div className="mt-1 h-1 w-2/3 rounded-full bg-white/15" />
-        </div>
-        <div className="mt-4 grid grid-cols-2 gap-2">
-          <div className="rounded-md bg-white/5 p-2 text-[0.5rem] uppercase tracking-widest opacity-80">Laser · Skin</div>
-          <div className="rounded-md bg-[hsl(280_40%_75%)]/20 p-2 text-[0.5rem] uppercase tracking-widest text-[hsl(280_40%_80%)]">Book Now</div>
-        </div>
-        <div className="mt-4 flex items-center gap-3">
-          <div className="h-8 w-8 rounded-full bg-[hsl(280_40%_75%)]/30" />
+
+        {/* Doctor trust row */}
+        <div className="mt-8 mx-4 p-4 rounded-2xl bg-white border border-[#E6CCB2]/30 shadow-sm flex items-center gap-4">
+          <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-[#FFE8D6] to-[#D4A373]/40 border border-[#D4A373]/20 flex items-center justify-center text-[0.6rem]">👩‍⚕️</div>
           <div className="flex-1">
-            <div className="h-1.5 w-1/2 rounded bg-white/20" />
-            <div className="mt-1 h-1 w-2/3 rounded bg-white/10" />
+            <h4 className="text-[0.45rem] font-bold">Expert Care led by Dr. Ukarande</h4>
+            <p className="text-[0.32rem] text-slate-400 font-sans">MD in Dermatology & Hair Restoration Specialist</p>
+            <div className="flex items-center gap-1 mt-1 font-sans text-[0.3rem] text-[#D4A373]">
+              <span>★★★★★</span>
+              <span className="text-slate-400">(4.9/5 based on 1000+ patients)</span>
+            </div>
           </div>
         </div>
-        <div className="mt-5 text-center text-[0.5rem] uppercase tracking-[0.3em] text-[hsl(280_40%_75%)] opacity-70">Confidence · Care · Craft</div>
       </div>
     </AutoScroll>
   );
@@ -155,157 +198,198 @@ export function EliteCosmoSite() {
 
 export function DealItSite() {
   return (
-    <AutoScroll distance="82%" duration={20}>
-      <div className="bg-[hsl(150_30%_96%)] px-5 py-5 text-[hsl(150_40%_14%)]">
-        <div className="flex items-center justify-between">
+    <AutoScroll distance="45%" duration={16}>
+      <div className="bg-[#ECF7F2] text-[#0A2F1D] font-sans pb-8 min-h-[500px] relative">
+        {/* Mint grid decor */}
+        <div className="absolute inset-0 blueprint-lines opacity-[0.06] pointer-events-none" />
+
+        {/* Navbar */}
+        <div className="bg-[#ECF7F2]/95 backdrop-blur-md border-b border-[#0A2F1D]/5 px-4 py-2.5 flex items-center justify-between sticky top-0 z-30">
           <div className="flex items-center gap-1.5">
-            <div className="h-4 w-4 rounded-md bg-[hsl(150_60%_34%)]" />
-            <span className="font-display text-sm font-semibold">Deal-it</span>
-          </div>
-          <div className="flex gap-2 text-[0.5rem] uppercase tracking-widest opacity-70">
-            <span>Marketplace</span><span>Sell</span><span>Vault</span>
-          </div>
-        </div>
-        <div className="mt-5 rounded-xl bg-[hsl(150_60%_34%)] p-4 text-white">
-          <div className="text-[0.5rem] uppercase tracking-widest opacity-80">Secure digital delivery</div>
-          <div className="mt-1 text-lg font-bold leading-tight">Buy & sell digital products, <span className="text-[hsl(48_80%_62%)]">safely</span></div>
-          <div className="mt-3 flex gap-1.5">
-            <div className="rounded-md bg-white/15 px-2 py-1 text-[0.5rem]">E-books</div>
-            <div className="rounded-md bg-white/15 px-2 py-1 text-[0.5rem]">Templates</div>
-            <div className="rounded-md bg-white/15 px-2 py-1 text-[0.5rem]">Licenses</div>
-          </div>
-        </div>
-        <div className="mt-4 grid grid-cols-2 gap-2.5">
-          {[0,1,2,3].map(i => (
-            <div key={i} className="rounded-lg border border-[hsl(150_30%_80%)] bg-white p-2.5">
-              <div className="aspect-square rounded-md bg-gradient-to-br from-[hsl(150_30%_85%)] to-[hsl(150_30%_72%)]" />
-              <div className="mt-1.5 flex items-center justify-between">
-                <span className="text-[0.6rem] font-semibold">₹{[499,299,799,199][i]}</span>
-                <span className="flex items-center gap-0.5 text-[0.5rem] text-[hsl(150_60%_34%)]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[hsl(150_60%_34%)]" />Secure
-                </span>
-              </div>
-              <div className="mt-1 h-1.5 w-2/3 rounded bg-[hsl(150_30%_80%)]" />
+            <div className="h-4.5 w-4.5 rounded-lg bg-[#0F9F58] flex items-center justify-center text-white text-[0.42rem] font-bold shadow-sm">
+              ✓
             </div>
-          ))}
+            <span className="font-bold text-[0.55rem] tracking-tight">Dealit</span>
+          </div>
+          <div className="flex gap-3 text-[0.38rem] font-semibold text-[#0A2F1D]/60">
+            <span>Marketplace</span>
+            <span>Dashboard</span>
+            <span>Escrow Vault</span>
+          </div>
+          <button className="bg-[#0F9F58] hover:bg-[#0D874A] text-white px-3 py-1 rounded-full text-[0.35rem] font-bold shadow-sm transition-all">
+            Login
+          </button>
         </div>
-        <div className="mt-4 rounded-lg border border-[hsl(150_60%_34%)]/20 bg-[hsl(150_60%_34%)]/8 p-3">
-          <div className="flex items-center justify-between">
+
+        {/* Hero Section */}
+        <div className="px-6 pt-8 text-center max-w-md mx-auto">
+          <span className="inline-block bg-[#0F9F58]/10 text-[#0F9F58] px-2.5 py-0.5 rounded-full text-[0.32rem] font-bold">
+            Escrow-backed Deliveries
+          </span>
+          <h1 className="text-xl font-bold tracking-tight text-[#0A2F1D] mt-2 leading-tight">
+            Secure Digital Delivery, <span className="text-[#0F9F58]">Guaranteed</span>
+          </h1>
+          <p className="text-[0.45rem] text-[#0A2F1D]/60 mt-1.5 max-w-xs mx-auto leading-relaxed">
+            Protect your transactions. Funds are held securely in our escrow vault until digital files are delivered and verified.
+          </p>
+        </div>
+
+        {/* Escrow Dashboard Widget */}
+        <div className="mt-6 mx-4 bg-white border border-[#A5D6A7]/30 rounded-xl p-3 shadow-md">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-2">
             <div>
-              <div className="text-[0.55rem] font-semibold uppercase tracking-wider">Escrow vault</div>
-              <div className="text-[0.5rem] opacity-70">Funds held until delivery confirmed</div>
+              <span className="text-[0.32rem] text-slate-400 font-bold uppercase tracking-wider block">Active Deals</span>
+              <span className="text-[0.55rem] font-bold text-[#0A2F1D]">₹24,850.00</span>
             </div>
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[hsl(150_60%_34%)] text-[0.6rem] font-bold text-white">✓</div>
+            <span className="bg-[#E8F5E9] text-[#0F9F58] text-[0.32rem] px-2 py-0.5 rounded-full font-bold">
+              ● Secure Vault Active
+            </span>
+          </div>
+
+          <div className="mt-3 space-y-2">
+            <div className="flex items-center justify-between text-[0.38rem] bg-[#F4FAF7] p-2 rounded-lg">
+              <span className="font-medium">Design Template Pack.zip</span>
+              <span className="text-[#0F9F58] font-bold">₹4,500</span>
+            </div>
+            <div className="flex items-center justify-between text-[0.38rem] bg-[#F4FAF7] p-2 rounded-lg">
+              <span className="font-medium">Laravel API License Code</span>
+              <span className="text-[#0F9F58] font-bold">₹12,800</span>
+            </div>
+          </div>
+
+          <div className="mt-3 border border-dashed border-[#A5D6A7]/50 rounded-lg p-3 text-center bg-[#F4FAF7] flex flex-col items-center justify-center">
+            <span className="text-[0.38rem] text-slate-500 font-medium">Escrow Vault: Drag & Drop Files to Lock</span>
+            <button className="mt-1 bg-white border border-[#A5D6A7] text-[#0F9F58] px-2 py-0.5 rounded text-[0.32rem] font-bold shadow-sm">
+              Upload Files
+            </button>
           </div>
         </div>
-        <div className="mt-4 grid grid-cols-2 gap-2">
-          <div className="rounded-md bg-white p-2.5 shadow-sm">
-            <div className="text-[0.5rem] uppercase tracking-widest opacity-60">Seller</div>
-            <div className="mt-0.5 text-[0.7rem] font-semibold">List product</div>
-            <div className="mt-1.5 h-1.5 w-full rounded bg-[hsl(150_30%_85%)]" />
+
+        {/* Feature Badges */}
+        <div className="mt-4 grid grid-cols-2 gap-3 px-4">
+          <div className="rounded-xl border border-[#A5D6A7]/25 bg-white p-2.5 flex items-center gap-2">
+            <span className="text-[0.6rem]">🛡️</span>
+            <div>
+              <h5 className="text-[0.38rem] font-bold">Buyer Protection</h5>
+              <p className="text-[0.3rem] text-slate-400">Escrow validation</p>
+            </div>
           </div>
-          <div className="rounded-md bg-[hsl(150_60%_34%)] p-2.5 text-white">
-            <div className="text-[0.5rem] uppercase tracking-widest opacity-80">Buyer</div>
-            <div className="mt-0.5 text-[0.7rem] font-semibold">Checkout</div>
-            <div className="mt-1.5 h-1.5 w-full rounded bg-white/25" />
+          <div className="rounded-xl border border-[#A5D6A7]/25 bg-white p-2.5 flex items-center gap-2">
+            <span className="text-[0.6rem]">⚡</span>
+            <div>
+              <h5 className="text-[0.38rem] font-bold">Instant Payout</h5>
+              <p className="text-[0.3rem] text-slate-400">Via Stripe Connect</p>
+            </div>
           </div>
         </div>
-        <div className="mt-4 text-center text-[0.5rem] uppercase tracking-[0.3em] text-[hsl(150_60%_34%)] opacity-60">Trust · Delivery · Marketplace</div>
       </div>
     </AutoScroll>
   );
 }
 
-/* Dr. Gaddam Clinic — distinct clinic identity, warmer palette */
 export function GaddamClinicSite() {
   return (
-    <AutoScroll distance="70%" duration={18}>
-      <div className="bg-[hsl(20_35%_97%)] px-5 py-5 text-[hsl(20_40%_16%)]">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[hsl(20_60%_45%)] text-[0.55rem] font-bold text-white">+</div>
-            <span className="font-display text-sm font-semibold">Dr. Gaddam Clinic</span>
-          </div>
-          <div className="flex gap-2 text-[0.5rem] uppercase tracking-widest opacity-70">
-            <span>Services</span><span>About</span><span>Book</span>
-          </div>
-        </div>
-        <div className="mt-6">
-          <div className="text-[1.55rem] font-light leading-[0.95] tracking-tight">Compassionate care,<br/><span className="text-[hsl(20_60%_45%)]">close to home</span></div>
-          <div className="mt-2 text-[0.55rem] uppercase tracking-[0.25em] opacity-60">General & Family Clinic</div>
-        </div>
-        <div className="mt-5 grid grid-cols-3 gap-2">
-          <div className="aspect-[3/4] rounded-md bg-gradient-to-b from-[hsl(20_40%_88%)] to-[hsl(20_40%_80%)]" />
-          <div className="aspect-[3/4] rounded-md bg-gradient-to-b from-[hsl(150_25%_80%)] to-[hsl(150_25%_72%)]" />
-          <div className="aspect-[3/4] rounded-md bg-gradient-to-b from-[hsl(20_60%_70%)] to-[hsl(20_60%_60%)]" />
-        </div>
-        <div className="mt-4 rounded-lg border border-[hsl(20_40%_80%)] bg-white p-3">
-          <div className="text-[0.5rem] uppercase tracking-widest text-[hsl(20_60%_45%)]">Book Appointment</div>
-          <div className="mt-1.5 flex gap-1.5">
-            <div className="h-6 flex-1 rounded-md bg-[hsl(20_35%_92%)]" />
-            <div className="h-6 flex-1 rounded-md bg-[hsl(20_35%_92%)]" />
-          </div>
-          <div className="mt-1.5 h-5 w-full rounded-md bg-[hsl(20_60%_45%)] text-white text-[0.5rem] flex items-center justify-center font-semibold uppercase tracking-wider">Confirm</div>
-        </div>
-        <div className="mt-4 grid grid-cols-2 gap-2">
-          <div className="rounded-md bg-[hsl(20_35%_92%)] p-2.5">
-            <div className="text-[0.5rem] uppercase tracking-widest opacity-70">Consultation</div>
-            <div className="mt-1 text-[0.6rem] font-semibold">Mon–Sat</div>
-          </div>
-          <div className="rounded-md bg-[hsl(150_25%_90%)] p-2.5">
-            <div className="text-[0.5rem] uppercase tracking-widest opacity-70">Online</div>
-            <div className="mt-1 text-[0.6rem] font-semibold">Video visit</div>
-          </div>
-        </div>
-        <div className="mt-4 text-center text-[0.5rem] uppercase tracking-[0.3em] text-[hsl(20_60%_45%)] opacity-70">Care · Trust · Accessibility</div>
-      </div>
-    </AutoScroll>
-  );
-}
+    <AutoScroll distance="45%" duration={16}>
+      <div className="bg-[#F0F5FA] text-[#0F2537] font-sans pb-8 min-h-[500px] relative">
+        {/* Subtle grid backdrop */}
+        <div className="absolute inset-0 blueprint-lines opacity-[0.06] pointer-events-none" />
 
-export function VibeBoltSite() {
-  return (
-    <AutoScroll distance="70%" duration={17}>
-      <div className="bg-[hsl(248_55%_11%)] px-5 py-5 text-white">
-        <div className="flex items-center justify-between">
+        {/* Navbar */}
+        <div className="bg-[#F0F5FA]/95 backdrop-blur-md border-b border-[#0F2537]/5 px-4 py-2.5 flex items-center justify-between sticky top-0 z-30">
           <div className="flex items-center gap-1.5">
-            <div className="flex h-5 w-5 items-center justify-center rounded-md bg-gradient-to-br from-[hsl(280_80%_60%)] to-[hsl(248_80%_55%)] text-[0.6rem] font-bold">V</div>
-            <span className="font-display text-sm font-semibold">VibeBolt</span>
-          </div>
-          <div className="flex gap-2 text-[0.5rem] uppercase tracking-widest opacity-60">
-            <span>Templates</span><span>Pricing</span>
-          </div>
-        </div>
-        <div className="mt-6 text-center">
-          <div className="text-[1.7rem] font-bold leading-[0.95] tracking-tight">
-            Ship apps at the<br/><span className="bg-gradient-to-r from-[hsl(280_80%_65%)] to-[hsl(248_90%_60%)] bg-clip-text text-transparent">speed of thought</span>
-          </div>
-          <div className="mt-2 text-[0.55rem] uppercase tracking-[0.25em] opacity-50">AI-native dev platform</div>
-          <div className="mt-3 inline-flex rounded-full bg-gradient-to-r from-[hsl(280_80%_60%)] to-[hsl(248_80%_55%)] px-4 py-1.5 text-[0.6rem] font-semibold">Start building</div>
-        </div>
-        <div className="mt-5 grid grid-cols-3 gap-2">
-          {[
-            'from-[hsl(280_70%_50%)] to-[hsl(248_70%_45%)]',
-            'from-[hsl(330_70%_50%)] to-[hsl(280_70%_45%)]',
-            'from-[hsl(200_70%_50%)] to-[hsl(248_70%_45%)]',
-          ].map((g,i)=>(
-            <div key={i} className={`rounded-lg bg-gradient-to-br ${g} p-2.5`}>
-              <div className="h-4 rounded bg-white/20" />
-              <div className="mt-1.5 h-1.5 w-2/3 rounded bg-white/30" />
+            <div className="h-4.5 w-4.5 rounded-full bg-[#1E6091] flex items-center justify-center text-white text-[0.45rem] font-bold shadow-sm">
+              🩺
             </div>
-          ))}
-        </div>
-        <div className="mt-4 rounded-lg border border-white/10 bg-white/5 p-3">
-          <div className="flex items-center gap-1.5 text-[0.55rem]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[hsl(150_60%_50%)]" />
-            <span className="opacity-80">Live deploy · 0.4s</span>
+            <span className="font-bold text-[0.5rem] tracking-tight text-[#1E6091]">Dr. Gaddam Clinic</span>
           </div>
-          <div className="mt-2 space-y-1 font-mono text-[0.5rem] opacity-70">
-            <div>$ vibe init project</div>
-            <div className="text-[hsl(150_60%_60%)]">✓ ready in 412ms</div>
+          <div className="flex gap-2.5 text-[0.35rem] font-semibold text-[#0F2537]/60">
+            <span>Home</span>
+            <span>Services</span>
+            <span>Doctors</span>
+            <span>Contact</span>
+          </div>
+          <button className="bg-[#1E6091] hover:bg-[#1A527E] text-white px-3 py-1 rounded-full text-[0.35rem] font-bold shadow-sm transition-all">
+            Book Appointment
+          </button>
+        </div>
+
+        {/* Hero Section */}
+        <div className="grid grid-cols-12 gap-3 px-5 pt-8 items-start">
+          {/* Left Text */}
+          <div className="col-span-7 flex flex-col gap-2">
+            <span className="inline-block bg-[#1E6091]/15 text-[#1E6091] px-2 py-0.5 rounded-full text-[0.32rem] font-bold w-fit">
+              ✦ Trustworthy Skin & Hair Care
+            </span>
+            <h1 className="text-[1.05rem] font-bold leading-tight mt-1 text-[#0F2537]">
+              Expert Dermatology,<br />
+              <span className="text-[#1E6091]">Advanced Laser.</span>
+            </h1>
+            <p className="text-[0.45rem] leading-relaxed text-slate-500 mt-1">
+              Personalized skin, hair and laser treatments delivered using advanced FDA-approved equipment.
+            </p>
+            <div className="flex gap-2 mt-2">
+              <button className="bg-[#1E6091] text-white px-3 py-1 rounded text-[0.35rem] font-bold shadow-sm">
+                Book Consultation
+              </button>
+            </div>
+          </div>
+
+          {/* Right Mockup Profile */}
+          <div className="col-span-5 relative">
+            <div className="aspect-[4/3] w-full rounded-xl bg-white border border-blue-100 shadow-md relative overflow-hidden flex flex-col justify-between p-2">
+              <div className="flex items-center gap-1.5">
+                <span className="h-6 w-6 rounded-full bg-[#F0F5FA] border border-[#1E6091]/10 flex items-center justify-center text-[0.45rem]">👨‍⚕️</span>
+                <div className="flex flex-col leading-none">
+                  <span className="text-[0.38rem] font-bold">Dr. Gaddam</span>
+                  <span className="text-[0.25rem] text-slate-400 font-semibold">Chief Dermatologist</span>
+                </div>
+              </div>
+              <div className="w-full h-[1px] bg-slate-100 my-1" />
+              <div className="space-y-1">
+                <div className="flex justify-between items-center text-[0.3rem]">
+                  <span className="text-slate-400">Patients:</span>
+                  <span className="font-bold text-[#1E6091]">10,000+</span>
+                </div>
+                <div className="flex justify-between items-center text-[0.3rem]">
+                  <span className="text-slate-400">Expertise:</span>
+                  <span className="font-bold text-[#1E6091]">16+ Years</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="mt-4 text-center text-[0.5rem] uppercase tracking-[0.3em] opacity-40">Build · Deploy · Scale</div>
+
+        {/* Pulse / Heartbeat SVG drawing */}
+        <div className="mt-6 mx-5 p-3 rounded-xl border border-blue-100/50 bg-white shadow-sm flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-[0.55rem]">📈</span>
+            <div className="leading-none">
+              <span className="text-[0.35rem] font-bold block">Patient Health Metrics</span>
+              <span className="text-[0.28rem] text-slate-400">Real-time vitals monitoring</span>
+            </div>
+          </div>
+          <svg viewBox="0 0 100 20" className="w-16 h-4 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M0,10 h15 l5,-8 l5,16 l5,-12 l5,8 l5,-4 l5,4 h40" />
+          </svg>
+        </div>
+
+        {/* Treatment Quick Grid */}
+        <div className="mt-4 grid grid-cols-2 gap-3 px-5">
+          <div className="bg-white border border-blue-50 rounded-xl p-2.5 flex items-center gap-2">
+            <span className="text-[0.5rem]">🧴</span>
+            <div className="leading-none">
+              <span className="text-[0.35rem] font-bold block">Skin Care</span>
+              <span className="text-[0.28rem] text-slate-400">Medical facials</span>
+            </div>
+          </div>
+          <div className="bg-white border border-blue-50 rounded-xl p-2.5 flex items-center gap-2">
+            <span className="text-[0.5rem]">🧬</span>
+            <div className="leading-none">
+              <span className="text-[0.35rem] font-bold block">Laser Therapy</span>
+              <span className="text-[0.28rem] text-slate-400">Hair & scar removal</span>
+            </div>
+          </div>
+        </div>
       </div>
     </AutoScroll>
   );

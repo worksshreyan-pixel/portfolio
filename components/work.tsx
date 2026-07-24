@@ -6,6 +6,11 @@ import {
   Reveal,
   SectionIndex,
   CornerMarks,
+  Tape,
+  Stamp,
+  PaperClip,
+  PencilArrow,
+  Annotation,
 } from '@/components/paper-kit';
 import {
   BrowserMock,
@@ -38,65 +43,19 @@ type Project = {
 const projects: Project[] = [
   {
     index: '01',
-    name: 'Elite Cosmo Clinic',
-    tagline: 'Professional clinic website',
-    category: 'Healthcare',
-    year: '2025',
-    description:
-      'A professional website for a cosmetic clinic, built to make appointment booking effortless, establish trust with new patients, and give the clinic a modern, credible online presence that stands out in a competitive market.',
-    url: 'elitecosmoclinic.com',
-    tech: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
-    specs: [
-      { label: 'Industry', value: 'Cosmetic Clinic' },
-      { label: 'Project Type', value: 'Business Website' },
-      { label: 'Role', value: 'Design & Development' },
-      { label: 'Status', value: 'Live' },
-    ],
-    notes: [
-      { text: 'calm palette — builds trust with patients', color: 'lavender', rotate: -3, pos: 'sm:-left-6 top-10' },
-      { text: 'appointment booking front and centre', color: 'sage', rotate: 4, pos: 'right-2 -bottom-6' },
-    ],
-    tapeColor: 'lavender',
-    renderSite: EliteCosmoSite,
-  },
-  {
-    index: '02',
-    name: 'Dr. Gaddam Clinic',
-    tagline: 'Professional clinic website',
-    category: 'Healthcare',
-    year: '2025',
-    description:
-      'A professional website for Dr. Gaddam Clinic, designed to streamline appointment booking, strengthen the clinic\u2019s modern online presence, improve the patient experience, and improve visibility so patients can find and reach the clinic easily.',
-    url: 'drgaddamclinic.com',
-    tech: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
-    specs: [
-      { label: 'Industry', value: 'General Clinic' },
-      { label: 'Project Type', value: 'Business Website' },
-      { label: 'Role', value: 'Design & Development' },
-      { label: 'Status', value: 'Live' },
-    ],
-    notes: [
-      { text: 'warm, approachable — feels human', color: 'coral', rotate: 3, pos: '-left-4 top-16' },
-      { text: 'booking + video visit options', color: 'gold', rotate: -4, pos: 'right-0 -bottom-4' },
-    ],
-    tapeColor: 'coral',
-    renderSite: GaddamClinicSite,
-  },
-  {
-    index: '03',
-    name: 'Deal-it',
+    name: 'Dealit',
     tagline: 'Personal SaaS project · featured',
     category: 'SaaS · Marketplace',
-    year: '2025',
+    year: '2026',
     description:
-      'Deal-it is my personal SaaS project, built while exploring AI-assisted web development and modern product design. It is a platform focused on secure digital product delivery between buyers and sellers — an end-to-end marketplace concept where trust, transaction security, and a clean user experience come first. Building it taught me how to think like a product designer, not just a developer.',
-    url: 'dealit.app',
-    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase', 'Framer Motion'],
+      'Dealit is a secure digital delivery marketplace designed for creators, freelancers and agencies. It focuses on secure file delivery, private deals, escrow-style payments and a premium user experience. Built while exploring AI-assisted development, modern SaaS architecture and product design.',
+    url: 'https://dealit-ashen.vercel.app/',
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase'],
     specs: [
-      { label: 'Industry', value: 'Digital Marketplace' },
-      { label: 'Project Type', value: 'SaaS Platform' },
-      { label: 'Role', value: 'Product, Design & Development' },
-      { label: 'Status', value: 'In Progress' },
+      { label: 'Industry', value: 'SaaS Marketplace' },
+      { label: 'Role', value: 'Product Designer & Developer' },
+      { label: 'Technology', value: 'Next.js & Supabase' },
+      { label: 'Status', value: 'In Development' },
     ],
     notes: [
       { text: 'escrow vault — funds held until delivery', color: 'sage', rotate: -3, pos: '-left-6 top-8' },
@@ -117,6 +76,52 @@ const projects: Project[] = [
       'Continuous Iteration',
     ],
   },
+  {
+    index: '02',
+    name: 'Elite Cosmo Clinic',
+    tagline: 'Professional clinic website',
+    category: 'Healthcare',
+    year: '2026',
+    description:
+      'A professional website for a cosmetic clinic, built to make appointment booking effortless, establish trust with new patients, and give the clinic a modern, credible online presence that stands out in a competitive market.',
+    url: 'https://cosmo.examonly2025.workers.dev/',
+    tech: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
+    specs: [
+      { label: 'Industry', value: 'Cosmetic Clinic' },
+      { label: 'Role', value: 'Design & Development' },
+      { label: 'Technology', value: 'Next.js & React' },
+      { label: 'Status', value: 'Live' },
+    ],
+    notes: [
+      { text: 'calm palette — builds trust with patients', color: 'lavender', rotate: -3, pos: 'sm:-left-6 top-10' },
+      { text: 'appointment booking front and centre', color: 'sage', rotate: 4, pos: 'right-2 -bottom-6' },
+    ],
+    tapeColor: 'lavender',
+    renderSite: EliteCosmoSite,
+  },
+  {
+    index: '03',
+    name: 'Dr. Gaddam Clinic',
+    tagline: 'Professional clinic website',
+    category: 'Healthcare',
+    year: '2026',
+    description:
+      'A professional website for Dr. Gaddam Clinic, designed to streamline appointment booking, strengthen the clinic’s modern online presence, improve the patient experience, and improve visibility so patients can find and reach the clinic easily.',
+    url: 'https://vibe-bolt.vercel.app/',
+    tech: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
+    specs: [
+      { label: 'Industry', value: 'General Clinic' },
+      { label: 'Role', value: 'Design & Development' },
+      { label: 'Technology', value: 'Next.js & React' },
+      { label: 'Status', value: 'Live' },
+    ],
+    notes: [
+      { text: 'warm, approachable — feels human', color: 'coral', rotate: 3, pos: '-left-4 top-16' },
+      { text: 'booking + video visit options', color: 'gold', rotate: -4, pos: 'right-0 -bottom-4' },
+    ],
+    tapeColor: 'coral',
+    renderSite: GaddamClinicSite,
+  },
 ];
 
 export function Work() {
@@ -129,8 +134,8 @@ export function Work() {
         <SectionIndex n="§" label="Selected Work" className="mb-8" />
         <div className="flex flex-col items-start justify-between gap-6 border-t border-rule pt-8 lg:flex-row lg:items-end">
           <h2 className="display max-w-3xl text-[10vw] leading-[0.9] text-ink sm:text-[7vw] lg:text-[5.5rem]">
-            Three projects,<br />
-            <span className="text-stone">obsessively</span> crafted.
+            Works,<br />
+            <span className="text-stone">Crafted</span>
           </h2>
           <p className="max-w-xs text-pretty font-sans text-[0.95rem] leading-relaxed text-graphite">
             Each one designed and developed end-to-end — from the first
@@ -158,6 +163,15 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
   const noteY = useTransform(scrollYProgress, [0, 1], [40, -40]);
   const watermarkY = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
+  // stamps mapping for case study feel
+  const stamps: Record<string, { text: string; color: 'sage' | 'coral' | 'gold'; rotate: number; pos: string }> = {
+    '01': { text: 'v2.0', color: 'sage', rotate: -8, pos: '-top-10 -right-6' },
+    '02': { text: 'Approved', color: 'coral', rotate: 12, pos: '-bottom-10 right-10' },
+    '03': { text: 'Launch', color: 'gold', rotate: -15, pos: '-top-8 -left-6' },
+  };
+
+  const currentStamp = stamps[project.index];
+
   return (
     <div ref={ref} className="relative">
       {/* big watermark index */}
@@ -181,9 +195,8 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
       )}
 
       <div
-        className={`relative z-10 grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
-          flip ? 'lg:[direction:rtl]' : ''
-        }`}
+        className={`relative z-10 grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16 ${flip ? 'lg:[direction:rtl]' : ''
+          }`}
       >
         {/* editorial info */}
         <div className="lg:[direction:ltr]">
@@ -247,7 +260,7 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
                 <div className="flex flex-wrap gap-x-5 gap-y-1.5">
                   {project.focusAreas.map((f) => (
                     <span key={f} className="flex items-center gap-1.5 font-sans text-[0.82rem] text-graphite">
-                      <span className="h-1 w-1 rounded-full bg-coral" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-coral" />
                       {f}
                     </span>
                   ))}
@@ -259,7 +272,7 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
           {/* CTA */}
           <Reveal delay={0.3}>
             <a
-              href={`https://${project.url}`}
+              href={project.url}
               target="_blank"
               rel="noopener noreferrer"
               data-cursor="Visit live"
@@ -273,14 +286,29 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
 
         {/* browser mock + annotations */}
         <div className="relative lg:[direction:ltr]">
-          <motion.div style={{ y: browserY }}>
+          <motion.div style={{ y: browserY }} className="relative z-10">
+            {/* Added Paperclip for extra tactile feel */}
+            <PaperClip className="absolute -left-2 -top-4 z-30" rotate={-15} />
+
             <BrowserMock
               url={project.url}
               renderSite={project.renderSite}
-              rotate={flip ? 2 : -2}
+              rotate={flip ? 3 : -3}
               tapeColor={project.tapeColor}
               index={project.index}
             />
+
+            {/* Stamp Layer */}
+            {currentStamp && (
+              <motion.div
+                style={{ y: noteY }}
+                className={`absolute z-30 ${currentStamp.pos}`}
+              >
+                <Stamp rotate={currentStamp.rotate} color={currentStamp.color}>
+                  {currentStamp.text}
+                </Stamp>
+              </motion.div>
+            )}
           </motion.div>
 
           {/* pinned annotation notes */}
@@ -298,6 +326,14 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
               </AnnotationChip>
             </motion.div>
           ))}
+
+          {/* Pencil Arrow doodles in background */}
+          {project.index === '01' && (
+            <PencilArrow direction="down-right" className="absolute -left-16 top-1/2 -translate-y-1/2 opacity-30 pointer-events-none hidden xl:block" />
+          )}
+          {project.index === '02' && (
+            <PencilArrow direction="curved" className="absolute -right-20 top-1/4 opacity-30 pointer-events-none hidden xl:block" />
+          )}
         </div>
       </div>
     </div>

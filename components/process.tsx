@@ -5,12 +5,11 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Reveal, SectionIndex, StickyNote, Stamp, Annotation, PencilArrow, Highlight, CornerMarks } from '@/components/paper-kit';
 
 const steps = [
-  { n: '01', label: 'Idea', desc: 'We talk. I learn what your business needs and what success looks like.', color: 'gold' as const, rotate: -2 },
-  { n: '02', label: 'Research', desc: 'Competitors, audience, references. I assemble a moodboard and blueprint.', color: 'sage' as const, rotate: 1.5 },
-  { n: '03', label: 'Design', desc: 'Layouts, typography, motion. Sketches become a refined visual system.', color: 'coral' as const, rotate: -1 },
-  { n: '04', label: 'Development', desc: 'Built in Next.js — fast, accessible, responsive, pixel-accurate.', color: 'lavender' as const, rotate: 2 },
-  { n: '05', label: 'Launch', desc: 'Deployed, tested, optimised. Lighthouse 95+. Live and performing.', color: 'gold' as const, rotate: -1.5 },
-  { n: '06', label: 'Support', desc: 'Iterate, measure, improve. I stay on after launch, not just before.', color: 'sage' as const, rotate: 1 },
+  { n: '01', label: 'Discover', desc: 'We talk. I learn what your business needs and what success looks like.', color: 'gold' as const, rotate: -2 },
+  { n: '02', label: 'Design', desc: 'Layouts, typography, motion. Sketches become a refined visual system.', color: 'sage' as const, rotate: 1.5 },
+  { n: '03', label: 'Develop', desc: 'Built in Next.js — fast, accessible, responsive, pixel-accurate.', color: 'coral' as const, rotate: -1 },
+  { n: '04', label: 'Launch', desc: 'Deployed, tested, optimised. Live and performing.', color: 'lavender' as const, rotate: 2 },
+  { n: '05', label: 'Support', desc: 'Iterate, measure, improve. I stay on after launch.', color: 'gold' as const, rotate: -1.5 },
 ];
 
 const reasons = [
@@ -33,7 +32,7 @@ export function Process() {
 
       <div className="mx-auto max-w-[1280px]">
         <Reveal>
-          <SectionIndex n="04" label="Services · Process · Why Me" className="mb-12" />
+          <SectionIndex n="04" label="Services · Approach · Why Me" className="mb-12" />
         </Reveal>
 
         {/* heading */}
@@ -53,7 +52,7 @@ export function Process() {
             className="absolute left-[7.5%] top-7 hidden h-px w-[85%] origin-left bg-ink lg:block"
           />
 
-          <div className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
             {steps.map((s, i) => (
               <Reveal key={s.n} delay={i * 0.06} className="relative">
                 {/* node */}

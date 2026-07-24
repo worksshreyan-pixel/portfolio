@@ -7,7 +7,7 @@ const links = [
   { id: 'work', label: 'Work', n: '01' },
   { id: 'about', label: 'About', n: '02' },
   { id: 'about', label: 'Toolkit', n: '03' },
-  { id: 'process', label: 'Process', n: '04' },
+  { id: 'process', label: 'Approach', n: '04' },
   { id: 'contact', label: 'Contact', n: '05' },
 ];
 
@@ -29,7 +29,7 @@ export function Navigation() {
         const el = els[i];
         if (el && el.offsetTop <= y) {
           cur = sections[i];
-          curLabel = sections[i] === 'about' ? 'About' : sections[i] === 'work' ? 'Work' : sections[i] === 'process' ? 'Process' : 'Contact';
+          curLabel = sections[i] === 'about' ? 'About' : sections[i] === 'work' ? 'Work' : sections[i] === 'process' ? 'Approach' : 'Contact';
         }
       }
       setActive(cur);
@@ -51,31 +51,33 @@ export function Navigation() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 0.8, 0.24, 1] }}
-        className="fixed left-1/2 top-4 z-50 w-[min(1120px,calc(100%-2rem))] -translate-x-1/2"
+        className="fixed inset-x-0 top-4 z-50 mx-auto w-full px-5 sm:px-8 lg:px-12"
       >
         <div
-          className={`grid grid-cols-[1fr_auto_1fr] items-center rounded-full border px-5 py-2.5 transition-all duration-500 ${
+          className={`mx-auto flex w-full max-w-7xl items-center justify-between rounded-full border px-8 py-3 transition-all duration-500 ${
             scrolled
-              ? 'border-rule/70 bg-paper/85 backdrop-blur-md paper-edge'
+              ? 'border-white/20 bg-white/70 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-black/5'
               : 'border-transparent bg-transparent'
           }`}
         >
           {/* Brand — left column */}
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="group flex items-center justify-self-start gap-2.5"
-            data-cursor="true"
-          >
+          <div className="flex flex-1 items-center justify-start">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="group flex items-center gap-2.5"
+              data-cursor="true"
+            >
             <span className="flex h-7 w-7 items-center justify-center rounded-full border border-ink/30 font-display text-sm font-semibold text-ink transition-transform duration-300 group-hover:rotate-[-8deg]">
               S
             </span>
             <span className="hidden font-display text-[0.95rem] font-medium tracking-tight text-ink sm:block">
               Shreyan
             </span>
-          </button>
+            </button>
+          </div>
 
-          {/* Desktop links — centered column */}
-          <nav className="hidden items-center justify-center gap-2 justify-self-center md:flex">
+          {/* Desktop links — perfectly centered without absolute positioning */}
+          <nav className="hidden shrink-0 items-center gap-4 md:flex">
             {links.map((l) => (
               <button
                 key={`${l.id}-${l.label}`}
@@ -109,11 +111,11 @@ export function Navigation() {
           </nav>
 
           {/* CTA + mobile toggle — right column */}
-          <div className="flex items-center justify-self-end gap-3">
+          <div className="flex flex-1 items-center justify-end gap-3">
             <button
               onClick={() => go('contact')}
               data-cursor="true"
-              className="hidden rounded-full border border-ink/25 px-4 py-1.5 font-display text-[0.82rem] text-ink transition-colors duration-300 hover:bg-ink hover:text-paper sm:block"
+              className="hidden rounded-full bg-[#1a1a1a] px-5 py-2 font-sans text-[0.85rem] font-medium tracking-tight text-white shadow-sm transition-all duration-300 hover:scale-105 hover:bg-black hover:shadow-md sm:block"
             >
               Let&rsquo;s talk
             </button>

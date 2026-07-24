@@ -164,7 +164,7 @@ export function Contact() {
                   type="submit"
                   disabled={status === 'loading' || status === 'success'}
                   data-cursor={status === 'success' ? 'Sent!' : 'Send'}
-                  className="group flex w-full items-center justify-center gap-3 rounded-full bg-ink px-6 py-4 font-display text-[0.95rem] font-medium text-paper transition-all duration-300 hover:gap-4 disabled:opacity-70"
+                  className="group flex w-full items-center justify-center gap-3 rounded-full bg-ink px-6 py-4 font-display text-[1.05rem] font-medium text-paper transition-all duration-300 hover:gap-4 disabled:opacity-70"
                 >
                   <AnimatePresence mode="wait">
                     {status === 'loading' ? (
@@ -206,16 +206,17 @@ export function Contact() {
           background: transparent;
           border: none;
           border-bottom: 1px solid hsl(var(--rule));
-          padding: 0.5rem 0;
-          font-family: var(--font-display);
-          font-size: 1.05rem;
+          padding: 0.6rem 0;
+          font-family: var(--font-sans);
+          font-size: 1rem;
           color: hsl(var(--ink));
           outline: none;
           transition: border-color 0.3s ease;
         }
         :global(.editorial-input::placeholder) {
-          color: hsl(var(--rule));
+          color: hsl(var(--stone));
           font-weight: 300;
+          font-style: italic;
         }
         :global(.editorial-input:focus) {
           border-color: hsl(var(--ink));

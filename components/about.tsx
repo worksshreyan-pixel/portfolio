@@ -34,33 +34,27 @@ export function About() {
           <div>
             <Reveal>
               <h2 className="display text-[9vw] leading-[0.92] text-ink sm:text-[6.5vw] lg:text-[5rem]">
-                An <span className="text-stone italic font-light">engineering</span><br />
-                student who designs<br />
-                <Highlight>premium</Highlight> websites.
+                All <span className="text-stone italic font-light">Project</span><br />
+                starts with <br />
+                <Highlight>Curosity</Highlight> Ends with Experience.
               </h2>
             </Reveal>
 
             <Reveal delay={0.15} className="mt-10 max-w-xl">
               <p className="text-pretty font-sans text-[1.02rem] leading-relaxed text-graphite">
-                I&rsquo;m an Engineering student passionate about design,
-                technology, and building premium digital experiences. While
-                building my personal project, Deal-it, I discovered how
-                powerful AI-assisted development can be.
+                I am an Engineering student passionate about building premium websites and digital experiences.
               </p>
             </Reveal>
             <Reveal delay={0.22} className="mt-5 max-w-xl">
               <p className="text-pretty font-sans text-[1.02rem] leading-relaxed text-graphite">
-                That experience inspired me to start creating modern websites
-                for real businesses. Today I combine design thinking, frontend
-                development, and AI tools to build fast, responsive, and
-                visually premium websites.
+                While working on Dealit, I discovered the power of AI-assisted development and modern web technologies.
+                That journey inspired me to start creating professional websites while continuously improving my design and development skills.
               </p>
             </Reveal>
             <Reveal delay={0.28} className="mt-5 max-w-xl">
               <p className="text-pretty font-sans text-[1.02rem] leading-relaxed text-graphite">
-                I&rsquo;m continuously learning, expanding my portfolio, and
-                working towards building my own web design agency in the
-                future.
+                Today I enjoy combining design thinking, frontend engineering and AI tools to build modern, fast and visually refined digital experiences.
+                My long-term goal is to build a premium web design agency.
               </p>
             </Reveal>
 
