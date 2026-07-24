@@ -56,26 +56,31 @@ export function CustomCursor() {
     if (!supportsHover) return;
     setEnabled(true);
 
+    let frameId: number;
     const move = (e: MouseEvent) => {
-      ringX.set(e.clientX);
-      ringY.set(e.clientY);
-      dotX.set(e.clientX);
-      dotY.set(e.clientY);
-      const t = e.target as HTMLElement;
-      const interactive = t.closest('a, button, [data-cursor], input, textarea, [role="button"]');
-      setHovering(!!interactive);
-      const c = interactive?.getAttribute('data-cursor');
-      setLabel(c && c !== 'true' ? c : null);
+      cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(() => {
+        ringX.set(e.clientX);
+        ringY.set(e.clientY);
+        dotX.set(e.clientX);
+        dotY.set(e.clientY);
+        const t = e.target as HTMLElement;
+        const interactive = t.closest('a, button, [data-cursor], input, textarea, [role="button"]');
+        setHovering(!!interactive);
+        const c = interactive?.getAttribute('data-cursor');
+        setLabel(c && c !== 'true' ? c : null);
+      });
     };
     const dn = () => setDown(true);
     const up = () => setDown(false);
-    window.addEventListener('mousemove', move);
-    window.addEventListener('mousedown', dn);
-    window.addEventListener('mouseup', up);
+    window.addEventListener('mousemove', move, { passive: true });
+    window.addEventListener('mousedown', dn, { passive: true });
+    window.addEventListener('mouseup', up, { passive: true });
     return () => {
       window.removeEventListener('mousemove', move);
       window.removeEventListener('mousedown', dn);
       window.removeEventListener('mouseup', up);
+      cancelAnimationFrame(frameId);
     };
   }, [ringX, ringY, dotX, dotY]);
 
@@ -154,31 +159,24 @@ export function StickyNote({
   children: React.ReactNode;
   className?: string;
   rotate?: number;
-  color?: 'gold' | 'coral' | 'sage' | 'lavender' | 'white';
+  color?: 'gold' | 'coral' | 'sage' | 'lavender';
   pin?: boolean;
 }) {
-  const bg: Record<string, string> = {
-    gold: 'hsl(48 60% 86%)',
-    coral: 'hsl(9 58% 82%)',
-    sage: 'hsl(90 22% 84%)',
-    lavender: 'hsl(260 18% 86%)',
-    white: 'hsl(38 35% 97%)',
+  const colors: Record<string, string> = {
+    gold: 'bg-[#FCF6BD]',
+    coral: 'bg-[#FFD166]',
+    sage: 'bg-[#EAF2D7]',
+    lavender: 'bg-[#ECE4F9]',
   };
   return (
     <div
-      className={`relative ${className}`}
+      className={`relative p-5 shadow-[0_15px_35px_rgb(0,0,0,0.06)] ${colors[color]} ${className}`}
       style={{ transform: `rotate(${rotate}deg)` }}
     >
       {pin && (
-        <span className="absolute left-1/2 -top-1.5 -translate-x-1/2 z-10 flex h-3 w-3 items-center justify-center">
-          <span className="block h-2.5 w-2.5 rounded-full bg-coral shadow-[0_1px_2px_rgba(0,0,0,0.3)]" />
-          <span className="absolute h-3 w-[1px] bg-ink/30 -rotate-12" />
-        </span>
+        <div className="absolute left-1/2 top-1.5 h-3 w-3 -translate-x-1/2 rounded-full bg-[#E63946] shadow-sm border border-white/40" />
       )}
-      <div
-        className="paper-edge relative px-4 py-3 font-hand text-[1.05rem] leading-snug"
-        style={{ background: bg[color] }}
-      >
+      <div className="font-mono text-[0.8rem] leading-relaxed text-graphite/90 select-none">
         {children}
       </div>
     </div>
@@ -186,52 +184,70 @@ export function StickyNote({
 }
 
 /* ------------------------------------------------------------------ */
-/* Stamp — rotated circular/rounded approval stamp                     */
+/* Stamp tool                                                          */
 /* ------------------------------------------------------------------ */
 export function Stamp({
   children,
   className = '',
   rotate = -12,
-  color = 'coral',
+  color = 'sage',
 }: {
   children: React.ReactNode;
   className?: string;
   rotate?: number;
-  color?: 'coral' | 'sage' | 'ink' | 'gold';
+  color?: 'sage' | 'coral' | 'gold';
 }) {
-  const c: Record<string, string> = {
-    coral: 'hsl(var(--coral))',
-    sage: 'hsl(var(--sage))',
-    ink: 'hsl(var(--ink))',
-    gold: 'hsl(var(--gold))',
+  const colors: Record<string, string> = {
+    sage: 'border-sage text-sage',
+    coral: 'border-coral text-coral',
+    gold: 'border-gold text-gold',
   };
   return (
     <div
-      className={`inline-flex items-center justify-center ${className}`}
+      className={`inline-block border-2 px-3 py-1 font-mono text-[0.62rem] font-bold uppercase tracking-[0.25em] rounded select-none ${colors[color]} ${className}`}
       style={{ transform: `rotate(${rotate}deg)` }}
-      aria-hidden
     >
-      <div
-        className="rounded-md border-2 px-3 py-1.5 font-mono text-[0.6rem] font-medium uppercase tracking-[0.18em]"
-        style={{
-          borderColor: c[color],
-          color: c[color],
-          opacity: 0.82,
-        }}
-      >
-        {children}
-      </div>
+      {children}
     </div>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/* Handwritten annotation with pencil arrow                           */
+/* Annotation chip                                                     */
+/* ------------------------------------------------------------------ */
+export function AnnotationChip({
+  children,
+  className = '',
+  rotate = 0,
+  color = 'sage',
+}: {
+  children: React.ReactNode;
+  className?: string;
+  rotate?: number;
+  color?: 'sage' | 'coral' | 'gold';
+}) {
+  const colors: Record<string, string> = {
+    sage: 'bg-[#EAF2D7]/90 text-stone-700 border-sage/60',
+    coral: 'bg-[#FFD166]/90 text-stone-700 border-coral/60',
+    gold: 'bg-[#FCF6BD]/90 text-stone-700 border-gold/60',
+  };
+  return (
+    <div
+      className={`border px-2.5 py-1.5 font-mono text-[0.65rem] tracking-wider rounded shadow-sm select-none ${colors[color]} ${className}`}
+      style={{ transform: `rotate(${rotate}deg)` }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Annotation tag with hand-drawn arrow icon                          */
 /* ------------------------------------------------------------------ */
 export function Annotation({
   children,
   className = '',
-  rotate = -3,
+  rotate = 0,
   arrow = false,
 }: {
   children: React.ReactNode;
@@ -241,25 +257,14 @@ export function Annotation({
 }) {
   return (
     <div
-      className={`font-hand text-graphite ${className}`}
+      className={`font-display text-xs italic text-stone select-none ${className}`}
       style={{ transform: `rotate(${rotate}deg)` }}
     >
       {children}
       {arrow && (
-        <svg
-          width="46"
-          height="22"
-          viewBox="0 0 46 22"
-          className="ml-1 inline-block -mt-1"
-          fill="none"
-          stroke="hsl(var(--graphite))"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M2 11 C 14 4, 26 18, 40 9" />
-          <path d="M33 5 L 40 9 L 35 14" />
-        </svg>
+        <span className="block mt-1 font-mono text-[0.8rem] text-coral opacity-80">
+          ↴
+        </span>
       )}
     </div>
   );
@@ -296,35 +301,57 @@ export function CornerMarks({ className = '' }: { className?: string }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Pencil arrow — standalone directional doodle                        */
+/* Pencil arrows                                                       */
 /* ------------------------------------------------------------------ */
 export function PencilArrow({
   className = '',
-  direction = 'down',
+  direction = 'right',
 }: {
   className?: string;
-  direction?: 'down' | 'down-right' | 'right' | 'curved';
+  direction?: 'right' | 'down' | 'curved' | 'down-right';
 }) {
-  const paths: Record<string, React.ReactNode> = {
-    down: <path d="M12 2 V 40 M 6 33 L 12 41 L 18 33" />,
-    'down-right': <path d="M6 4 C 6 20, 24 22, 36 36 M 28 30 L 38 38 L 28 40" />,
-    right: <path d="M2 12 H 40 M 33 6 L 41 12 L 33 18" />,
-    curved: <path d="M4 4 C 4 24, 28 20, 40 38 M 32 30 L 42 40 L 30 40" />,
+  const paths: Record<string, string> = {
+    right: 'M2 8h20M16 3l5 5-5 5',
+    down: 'M8 2v20M3 16l5 5 5-5',
+    'down-right': 'M2 2l18 18M13 20h7v-7',
+    curved: 'M2 2c8 1 12 8 8 16M6 14l4 4 4-4',
   };
   return (
     <svg
-      width="48"
-      height="44"
-      viewBox="0 0 48 44"
-      className={`text-graphite/70 ${className}`}
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeWidth="1.5"
+      className={`text-stone/40 select-none ${className}`}
       aria-hidden
     >
-      {paths[direction]}
+      <path d={paths[direction]} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* SketchArrow hand-drawn styling                                      */
+/* ------------------------------------------------------------------ */
+export function SketchArrow({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      width="54"
+      height="34"
+      viewBox="0 0 54 34"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      className={`select-none ${className}`}
+      aria-hidden
+    >
+      <path
+        d="M2 18c12-3 28-2 42 6M38 12l8 12-12 4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -441,6 +468,7 @@ export function Reveal({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once, margin: '-80px' }}
       transition={{ duration: 0.7, delay, ease: [0.22, 0.8, 0.24, 1] }}
+      style={{ willChange: 'transform, opacity' }}
     >
       {children}
     </motion.div>
@@ -467,6 +495,7 @@ export function MaskReveal({
         whileInView={{ y: '0%' }}
         viewport={{ once, margin: '-40px' }}
         transition={{ duration: 0.8, delay, ease: [0.22, 0.8, 0.24, 1] }}
+        style={{ willChange: 'transform' }}
       >
         {children}
       </motion.span>
@@ -487,27 +516,48 @@ export function Magnetic({
   strength?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { damping: 18, stiffness: 220 });
   const sy = useSpring(y, { damping: 18, stiffness: 220 });
+
+  const handleMouseEnter = () => {
+    if (ref.current) {
+      rectRef.current = ref.current.getBoundingClientRect();
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    let r = rectRef.current;
+    if (!r) {
+      if (ref.current) {
+        r = ref.current.getBoundingClientRect();
+        rectRef.current = r;
+      } else {
+        return;
+      }
+    }
+    const px = (e.clientX - r.left - r.width / 2) * strength;
+    const py = (e.clientY - r.top - r.height / 2) * strength;
+    x.set(px);
+    y.set(py);
+  };
+
+  const handleMouseLeave = () => {
+    rectRef.current = null;
+    x.set(0);
+    y.set(0);
+  };
 
   return (
     <motion.div
       ref={ref}
       className={className}
       style={{ x: sx, y: sy }}
-      onMouseMove={(e) => {
-        const el = ref.current;
-        if (!el) return;
-        const r = el.getBoundingClientRect();
-        x.set((e.clientX - (r.left + r.width / 2)) * strength);
-        y.set((e.clientY - (r.top + r.height / 2)) * strength);
-      }}
-      onMouseLeave={() => {
-        x.set(0);
-        y.set(0);
-      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
       {children}
     </motion.div>

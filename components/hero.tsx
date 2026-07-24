@@ -204,9 +204,6 @@ export function Hero() {
   const scaleDown = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
   const yParallax = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
-  // Spotlight coordinates state
-  const [spotlightPos, setSpotlightPos] = useState({ x: 0, y: 0 });
-
   // Buttery smooth parallax springs (Linear/Framer influence)
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -215,48 +212,66 @@ export function Hero() {
   const smy = useSpring(my, smoothOptions);
 
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
 
-  const onMove = (e: React.MouseEvent) => {
-    const r = ref.current?.getBoundingClientRect();
-    if (!r) return;
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    mx.set(x * 2);
-    my.set(y * 2);
+  useEffect(() => {
+    setMounted(true);
 
-    // Track coordinates for the spotlight effect
-    setSpotlightPos({
-      x: e.clientX - r.left,
-      y: e.clientY - r.top,
-    });
-  };
+    const el = ref.current;
+    if (!el) return;
+
+    let frameId: number;
+    const handleMouseMove = (e: MouseEvent) => {
+      cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(() => {
+        const r = el.getBoundingClientRect();
+
+        // Spotlight coordinates directly on DOM node style properties (avoids React re-renders)
+        const mouseX = e.clientX - r.left;
+        const mouseY = e.clientY - r.top;
+        el.style.setProperty('--mouse-x', `${mouseX}px`);
+        el.style.setProperty('--mouse-y', `${mouseY}px`);
+
+        // Mouse Parallax - disable on tablet/mobile screens (< 1024px)
+        if (window.innerWidth < 1024) {
+          mx.set(0);
+          my.set(0);
+          return;
+        }
+
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+
+        // Intensity reduced by 40% (multiplier of 1.2 instead of 2.0)
+        mx.set(x * 1.2);
+        my.set(y * 1.2);
+      });
+    };
+
+    el.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      el.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(frameId);
+    };
+  }, [mx, my]);
 
   return (
     <section
       ref={ref}
-      onMouseMove={onMove}
       className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden bg-[hsl(38_20%_97%)] px-6 py-20 sm:px-12 lg:px-20"
     >
       {/* Vignette Shadow Frame around pages */}
       <div className="pointer-events-none absolute inset-0 z-10 shadow-[inset_0_0_120px_rgba(0,0,0,0.04)]" />
 
-      {/* V2 ultra-subtle blueprint background (slow drifting animation) */}
-      <motion.div
-        animate={{ x: [0, 6, 0], y: [0, 6, 0] }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-        className="blueprint-lines pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-multiply"
-      />
+      {/* V2 ultra-subtle blueprint background (static layer to avoid paint costs) */}
+      <div className="blueprint-lines pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-multiply" />
 
-      {/* Dynamic Cursor Spotlight Overlay */}
-      {mounted && (
-        <div
-          className="pointer-events-none absolute inset-0 z-0 opacity-55 transition-opacity duration-300"
-          style={{
-            background: `radial-gradient(500px circle at ${spotlightPos.x}px ${spotlightPos.y}px, rgba(255,244,214,0.45), transparent 85%)`
-          }}
-        />
-      )}
+      {/* Dynamic Cursor Spotlight Overlay (GPU-accelerated, uses CSS variables directly) */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 opacity-55 transition-opacity duration-300"
+        style={{
+          background: `radial-gradient(500px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(255,244,214,0.45), transparent 85%)`
+        }}
+      />
 
       {/* Background Watermark Outlines */}
       <div className="pointer-events-none absolute left-10 bottom-24 z-0 font-display text-[15vw] font-bold text-ink/[0.015] tracking-tighter select-none">
@@ -272,21 +287,13 @@ export function Hero() {
         <span className="font-mono text-[0.45rem] text-ink/20 p-2">[W: 100%]</span>
       </div>
 
-      {/* Floating drafting marks */}
-      <motion.div
-        animate={{ y: [0, -12, 0], rotate: [0, 360] }}
-        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute right-16 top-24 text-[1.4rem] text-ink/[0.08] select-none pointer-events-none font-sans"
-      >
+      {/* Static drafting marks (static to avoid rendering updates) */}
+      <div className="absolute right-16 top-24 text-[1.4rem] text-ink/[0.08] select-none pointer-events-none font-sans">
         ○
-      </motion.div>
-      <motion.div
-        animate={{ y: [0, 8, 0], rotate: [0, -360] }}
-        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute left-1/4 bottom-36 text-[1.1rem] text-ink/[0.08] select-none pointer-events-none font-sans"
-      >
+      </div>
+      <div className="absolute left-1/4 bottom-36 text-[1.1rem] text-ink/[0.08] select-none pointer-events-none font-sans">
         +
-      </motion.div>
+      </div>
 
       {/* Large coordinates in background */}
       <div className="absolute right-8 top-10 font-mono text-[0.55rem] text-ink/20 select-none pointer-events-none hidden md:block">
@@ -321,7 +328,7 @@ export function Hero() {
           </HeroReveal>
 
           <div className="relative">
-            <h1 className="font-display text-[4vw] font-bold tracking-tight text-[#1a1a1a] leading-[1.25] sm:text-[5vw] lg:text-[3rem] xl:text-[2.5rem]">
+            <h1 className="font-display text-[10vw] sm:text-[7vw] lg:text-[4rem] xl:text-[4.5rem] font-bold tracking-[-0.03em] text-[#1a1a1a] leading-[1.03]">
               <HeroMaskReveal>
                 •   Think -
               </HeroMaskReveal>
@@ -347,9 +354,9 @@ export function Hero() {
           </div>
 
           <HeroReveal delay={0.24}>
-            <div className="max-w-[640px]">
+            <div className="max-w-[500px]">
               <p className="font-sans text-[20px] font-medium leading-relaxed tracking-tight text-ink/70 lg:text-[22px]">
-                I design and build detail-rich, high-performing websites for businesses that want to feel premium and mature.
+                Designing detail-rich, high-performing websites that help businesses build trust, stand out, and grow with confidence.
               </p>
             </div>
           </HeroReveal>
@@ -393,7 +400,11 @@ export function Hero() {
                 <div className="mt-1 font-mono text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-ink/50">Websites live</div>
               </div>
 
-
+              {/* Handcrafted drafting specs card */}
+              <div className="absolute -right-24 bottom-2 opacity-35 select-none pointer-events-none font-mono text-[0.5rem] text-ink/40 tracking-wider hidden sm:block">
+                [COORD: 54.12 / 12.09]
+                <div className="w-10 h-1 bg-ink/15 mt-1" />
+              </div>
             </div>
           </HeroReveal>
         </div>
@@ -447,12 +458,12 @@ function DeskScene({ smx, smy }: { smx: any; smy: any }) {
 
   return (
     <div className="relative h-full w-full">
-      {/* Warm ambient spotlight behind laptop */}
-      <div className="absolute left-[30%] top-[25%] -translate-x-1/2 w-64 h-64 rounded-full bg-gradient-to-tr from-gold/10 via-coral/5 to-transparent blur-3xl opacity-80 pointer-events-none" />
+      {/* Warm ambient spotlight behind laptop (reduced blur radius for performance) */}
+      <div className="absolute left-[30%] top-[25%] -translate-x-1/2 w-64 h-64 rounded-full bg-gradient-to-tr from-gold/10 via-coral/5 to-transparent blur-2xl opacity-80 pointer-events-none" />
 
       {/* ---- BACK LAYER: Blueprint Sheets & Notebook ---- */}
       <motion.div
-        style={{ y: scrollBackY }}
+        style={{ y: scrollBackY, willChange: 'transform' }}
         className="absolute left-[5%] top-[10%] w-[62%] lg:w-[57%]"
       >
         <motion.div
@@ -486,15 +497,15 @@ function DeskScene({ smx, smy }: { smx: any; smy: any }) {
 
       {/* ---- MID LAYER: Laptop Device & Coffee Mug ---- */}
       <motion.div
-        style={{ y: scrollMidY }}
+        style={{ y: scrollMidY, willChange: 'transform' }}
         className="absolute right-[2%] top-[20%] w-[85%] lg:w-[80%]"
       >
         <motion.div
           style={{ x: tMidX, y: tMidY, rotateX, rotateY, transformStyle: 'preserve-3d' }}
           className="relative group transition-shadow duration-300"
         >
-          {/* Glassy, modern laptop frame */}
-          <div className="rounded-t-2xl border border-white/20 bg-[#f0f0f0] p-3 shadow-[0_30px_60px_rgb(0,0,0,0.12)] group-hover:shadow-[0_40px_70px_rgb(0,0,0,0.16)] ring-1 ring-black/5 backdrop-blur-xl">
+          {/* Glassy, modern laptop frame (reduced blur intensity) */}
+          <div className="rounded-t-2xl border border-white/20 bg-[#f0f0f0] p-3 shadow-[0_30px_60px_rgb(0,0,0,0.12)] group-hover:shadow-[0_40px_70px_rgb(0,0,0,0.16)] ring-1 ring-black/5 backdrop-blur-md">
             <div className="overflow-hidden rounded-xl border border-black/5 bg-white shadow-inner">
               {/* Refinement on Mocksite screen: realistic UI reflections */}
               <div className="relative h-[260px] sm:h-[320px]">
@@ -519,7 +530,7 @@ function DeskScene({ smx, smy }: { smx: any; smy: any }) {
 
       {/* ---- FRONT LAYER: Sketches, Notebook, Mug & Tools ---- */}
       <motion.div
-        style={{ y: scrollFrontY }}
+        style={{ y: scrollFrontY, willChange: 'transform' }}
         className="absolute -left-[5%] bottom-[8%] w-[65%] lg:w-[58%] z-20"
       >
         <motion.div
@@ -587,10 +598,11 @@ function DeskScene({ smx, smy }: { smx: any; smy: any }) {
             </svg>
           </div>
 
-          {/* Floating Sticky Note (swaying rotation loop animation) */}
+          {/* Floating Sticky Note (animate once on mount to avoid paint cost) */}
           <motion.div
-            animate={{ y: [0, -8, 0], rotate: [5, 9, 5] }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
             className="absolute right-[-10%] bottom-[-5%] z-20 w-40"
           >
             <StickyNote color="coral" pin className="shadow-[0_10px_30px_rgb(0,0,0,0.1)]">
@@ -600,13 +612,11 @@ function DeskScene({ smx, smy }: { smx: any; smy: any }) {
         </motion.div>
       </motion.div>
 
-      {/* ---- ADDED DESK PROPS: Coffee Mug, Ruler, Pencil & Swatches ---- */}
-
-
+      {/* ---- ADDED DESK PROPS: Ruler, Pencil & Swatches ---- */}
 
       {/* Metal Ruler */}
       <motion.div
-        style={{ y: scrollMidY }}
+        style={{ y: scrollMidY, willChange: 'transform' }}
         className="absolute right-[5%] bottom-[12%] z-10 hidden sm:block"
       >
         <motion.div style={{ x: tMidX, y: tMidY }}>
@@ -616,7 +626,7 @@ function DeskScene({ smx, smy }: { smx: any; smy: any }) {
 
       {/* Mechanical Pencil */}
       <motion.div
-        style={{ y: scrollFrontY }}
+        style={{ y: scrollFrontY, willChange: 'transform' }}
         className="absolute left-[2%] bottom-[2%] z-30"
       >
         <motion.div style={{ x: tFrontX, y: tFrontY }}>
@@ -624,9 +634,19 @@ function DeskScene({ smx, smy }: { smx: any; smy: any }) {
         </motion.div>
       </motion.div>
 
+      {/* Coffee Mug top-down view (placed safely at left-[24%] bottom-[6%] to clear sticky note) */}
+      <motion.div
+        style={{ y: scrollFrontY, willChange: 'transform' }}
+        className="absolute left-[24%] bottom-[6%] z-30 hidden lg:block"
+      >
+        <motion.div style={{ x: tFrontX, y: tFrontY }}>
+          <CoffeeMug />
+        </motion.div>
+      </motion.div>
+
       {/* Color Swatches */}
       <motion.div
-        style={{ y: scrollBackY }}
+        style={{ y: scrollBackY, willChange: 'transform' }}
         className="absolute right-[3%] top-[4%] z-10 hidden xl:block"
       >
         <motion.div style={{ x: tBackX, y: tBackY }}>
@@ -634,24 +654,18 @@ function DeskScene({ smx, smy }: { smx: any; smy: any }) {
         </motion.div>
       </motion.div>
 
-      {/* ---- FOREGROUND: Stamps & Details ---- */}
-      <motion.div
-        animate={{ y: [0, -4, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-[5%] right-[22%] z-30"
-      >
+      {/* ---- FOREGROUND: Stamps & Details (Static layers to avoid layout paint costs) ---- */}
+      <div className="absolute bottom-[5%] right-[22%] z-30">
         <Stamp rotate={-12} color="sage" className="scale-110 opacity-90 shadow-sm">
           approved
         </Stamp>
-      </motion.div>
+      </div>
 
-      <motion.div
-        className="absolute top-[48%] right-[5%] z-30 hidden md:block"
-      >
+      <div className="absolute top-[48%] right-[5%] z-30 hidden md:block">
         <Stamp rotate={5} color="coral" className="scale-90 opacity-80 shadow-sm">
           launch ready
         </Stamp>
-      </motion.div>
+      </div>
 
       {/* Additional tiny v2 stamp */}
       <div className="absolute right-[3%] bottom-[35%] z-20">
@@ -664,21 +678,17 @@ function DeskScene({ smx, smy }: { smx: any; smy: any }) {
         <PaperClip rotate={18} />
       </div>
 
-      <motion.div
-        className="absolute left-[44%] top-[48%] z-20 hidden sm:block"
-      >
+      <div className="absolute left-[44%] top-[48%] z-20 hidden sm:block">
         <Annotation className="text-[0.82rem] text-stone" rotate={-8} arrow>
           focus here
         </Annotation>
-      </motion.div>
+      </div>
 
       {/* measuring guide */}
-      <motion.div
-        className="absolute -bottom-1 right-8 z-10 hidden flex-col items-end sm:flex"
-      >
+      <div className="absolute -bottom-1 right-8 z-10 hidden flex-col items-end sm:flex">
         <span className="editorial-label mb-1 !text-[0.5rem]">↕ 100vh</span>
         <span className="h-16 w-px bg-ink/30" />
-      </motion.div>
+      </div>
     </div>
   );
 }

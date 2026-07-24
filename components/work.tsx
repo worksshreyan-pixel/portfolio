@@ -159,9 +159,9 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
     target: ref,
     offset: ['start end', 'end start'],
   });
-  const browserY = useTransform(scrollYProgress, [0, 1], [80, -80]);
-  const noteY = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  const watermarkY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const browserY = useTransform(scrollYProgress, [0, 1], [48, -48]);
+  const noteY = useTransform(scrollYProgress, [0, 1], [24, -24]);
+  const watermarkY = useTransform(scrollYProgress, [0, 1], [0, -36]);
 
   // stamps mapping for case study feel
   const stamps: Record<string, { text: string; color: 'sage' | 'coral' | 'gold'; rotate: number; pos: string }> = {
@@ -176,7 +176,7 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
     <div ref={ref} className="relative">
       {/* big watermark index */}
       <motion.div
-        style={{ y: watermarkY }}
+        style={{ y: watermarkY, willChange: 'transform' }}
         className="pointer-events-none absolute -top-16 right-0 z-0 select-none opacity-[0.07]"
         aria-hidden
       >
@@ -301,7 +301,11 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
             {/* Stamp Layer */}
             {currentStamp && (
               <motion.div
-                style={{ y: noteY }}
+                style={{ y: noteY, willChange: 'transform' }}
+                initial={{ scale: 0, rotate: -20 }}
+                whileInView={{ scale: 1, rotate: currentStamp.rotate }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
                 className={`absolute z-30 ${currentStamp.pos}`}
               >
                 <Stamp rotate={currentStamp.rotate} color={currentStamp.color}>
@@ -315,7 +319,11 @@ function ProjectSpread({ project, flip }: { project: Project; flip: boolean }) {
           {project.notes.map((note, ni) => (
             <motion.div
               key={ni}
-              style={{ y: noteY }}
+              style={{ y: noteY, willChange: 'transform' }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: ni * 0.05, ease: 'easeOut' }}
               className={`absolute z-20 ${note.pos}`}
             >
               <AnnotationChip

@@ -17,8 +17,8 @@ const tech = [
 export function About() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const stampRotate = useTransform(scrollYProgress, [0, 1], [-20, -6]);
-  const ySide = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const stampRotate = useTransform(scrollYProgress, [0, 1], [-12, -4]);
+  const ySide = useTransform(scrollYProgress, [0, 1], [24, -24]);
 
   return (
     <section id="about" ref={ref} className="relative px-5 py-28 sm:px-8 lg:px-12 lg:py-40">
@@ -67,7 +67,7 @@ export function About() {
           </div>
 
           {/* side: tech system + stamp */}
-          <motion.div style={{ y: ySide }} className="relative">
+          <motion.div style={{ y: ySide, willChange: 'transform' }} className="relative">
             <Reveal delay={0.1}>
               <div className="paper-sheet relative rounded-xl border border-rule/60 p-7">
                 <Tape />
@@ -98,7 +98,7 @@ export function About() {
               </div>
             </Reveal>
 
-            <motion.div style={{ rotate: stampRotate }} className="absolute -right-3 -top-6 z-20">
+            <motion.div style={{ rotate: stampRotate, willChange: 'transform' }} className="absolute -right-3 -top-6 z-20">
               <Stamp color="coral" rotate={0}>
                 made by hand
               </Stamp>
